@@ -6,3 +6,5 @@ so gitHub doesn't get confused.
 "what's up!" - Marko
 
 "Hello marko" - Dominic
+
+"Everyone please work to animate"
