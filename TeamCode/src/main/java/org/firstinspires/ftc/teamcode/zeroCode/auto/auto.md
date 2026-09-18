@@ -1,0 +1,1 @@
+Pedro pathing is going to be used for auto, so read up on that if you haven't already.
