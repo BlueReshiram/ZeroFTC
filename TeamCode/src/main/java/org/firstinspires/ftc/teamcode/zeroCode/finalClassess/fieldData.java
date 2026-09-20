@@ -11,4 +11,5 @@ public final class fieldData {
     public static int nectarInBlueHive = 0;
     public static int pollenInRedHive = 0;
     public static int nectarInRedHive = 0;
+
 }
