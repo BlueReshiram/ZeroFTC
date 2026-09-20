@@ -1,21 +1,21 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
 
-import static org.firstinspires.ftc.teamcode.zeroCode.constants.drive.backRightMotor;
-import static org.firstinspires.ftc.teamcode.zeroCode.constants.drive.backLeftMotor;
-import static org.firstinspires.ftc.teamcode.zeroCode.constants.drive.frontLeftMotor;
-import static org.firstinspires.ftc.teamcode.zeroCode.constants.drive.frontRightMotor;
+import static org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants.drive.backRightMotor;
+import static org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants.drive.backLeftMotor;
+import static org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants.drive.frontLeftMotor;
+import static org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants.drive.frontRightMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-import org.firstinspires.ftc.teamcode.zeroCode.constants;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants;
 
 public class drive {
     public static double botHeading(){
         return constants.imu.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
-    //double botHeading = ;
 
-    public static double[] caculateDriveMecanumFC(double botHeading, double lx, double rx, double y){
+    //Field Centric Drive
+    public static double[] calculateDriveMecanumFC(double botHeading, double lx, double rx, double y){
         //lx = left stick x, rx = right stick x, y = left stick y?
         double rotX = lx * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = lx * Math.sin(-botHeading) + y * Math.cos(-botHeading);
@@ -34,7 +34,8 @@ public class drive {
         return new double[]{frontLeftPower, frontRightPower, backLeftPower, backRightPower};
     }
 
-    public static double[] caculateDriveMecanumRC(double lx, double rx, double y){
+    //Robot Centric Drive
+    public static double[] calculateDriveMecanumRC(double lx, double rx, double y){
         double denominator = Math.max(Math.abs(y) + Math.abs(lx) + Math.abs(rx), 1);
         double frontLeftPower = (y + lx + rx) / denominator;
         double backLeftPower = (y - lx + rx) / denominator;
