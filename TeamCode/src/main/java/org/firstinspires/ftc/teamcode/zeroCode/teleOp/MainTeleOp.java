@@ -5,18 +5,18 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.webcamAprilTag;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.aprilTag;
 
 @TeleOp(name="Main: OpModeV1", group="OpMode")
 public class MainTeleOp extends OpMode {
     private drive robotDrive;
-    private webcamAprilTag webcam;
+    private aprilTag webcam;
 
     @Override
     public void init() {
         constants.hardware.initializeHardwareMaps();
         robotDrive = new drive();
-        webcam = new webcamAprilTag();
+        webcam = new aprilTag();
     }
 
     @Override
