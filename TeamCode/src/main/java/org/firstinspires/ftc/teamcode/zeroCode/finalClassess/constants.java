@@ -121,7 +121,7 @@ public final class constants {
                 telemetry.addLine("Webcam and Vision Portal NOT initialized.");
             }
 
-
+            telemetry.update();
 
         }
 

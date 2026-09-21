@@ -33,5 +33,6 @@ public class MainTeleOp extends OpMode {
         webcam.update();
 
 
+        telemetry.update();
     }
 }
