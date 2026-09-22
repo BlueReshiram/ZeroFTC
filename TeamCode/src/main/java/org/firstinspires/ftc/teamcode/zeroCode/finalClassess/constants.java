@@ -70,12 +70,12 @@ public final class constants {
 
     public static final class hardware {
 
-        public static boolean initializeDrive = true;
-        public static boolean initializeIMU = true;
+        public static boolean initializeDrive = false;
+        public static boolean initializeIMU = false;
         public static boolean initializeTurrets = false;
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
-        public static boolean initializeWebcam = false;
+        public static boolean initializeWebcam = true;
         public static void initializeHardwareMaps() {
             if (initializeDrive) {
                 drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
