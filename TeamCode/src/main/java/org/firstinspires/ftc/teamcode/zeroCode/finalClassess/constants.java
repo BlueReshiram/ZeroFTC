@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -19,6 +20,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 
 public final class constants {
+    public static Telemetry telemetry;
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
 
@@ -64,7 +66,7 @@ public final class constants {
 
         public static void resetYaw(){
             imu.resetYaw();
-            telemetry.addLine("IMU Yaw has been reset.");
+            constants.telemetry.addLine("IMU Yaw has been reset.");
         }
     }
 
@@ -76,7 +78,7 @@ public final class constants {
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = true;
-        public static void initializeHardwareMaps() {
+        public static void initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
             if (initializeDrive) {
                 drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
                 drive.frontRightMotor = hardwareMap.get(DcMotor.class, drive.frontRightMotorName);

@@ -50,7 +50,6 @@ public class aprilTag {
             }
         }
 
-        telemetry.update();
     }
 
     public List<AprilTagDetection> getDetectedTags(){

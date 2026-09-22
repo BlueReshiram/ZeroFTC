@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.zeroCode.teleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.aprilTag;
@@ -14,7 +15,9 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void init() {
-        constants.hardware.initializeHardwareMaps();
+        telemetry.addLine("Initiliing");
+        constants.telemetry = telemetry;
+        constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
         robotDrive = new drive();
         webcam = new aprilTag();
     }
