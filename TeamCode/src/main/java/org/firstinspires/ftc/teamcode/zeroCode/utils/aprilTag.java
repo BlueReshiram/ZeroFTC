@@ -40,8 +40,7 @@ public class aprilTag {
 
         //Find the Pose3D of the robot
         for (AprilTagDetection CurrentTag : detectedTags) {
-            AprilTagPoseFtc tagPose = CurrentTag.ftcPose;
-
+            robotPose = CurrentTag.robotPose;
             if (CurrentTag instanceof AprilTagClusterDetection) {
                 AprilTagClusterDetection clusterDetection = (AprilTagClusterDetection) CurrentTag;
             } else if (CurrentTag instanceof AprilTagSingleDetection){
@@ -49,6 +48,8 @@ public class aprilTag {
 
             }
         }
+
+        constants.telemetry.addLine(robotPose.toString());
 
     }
 

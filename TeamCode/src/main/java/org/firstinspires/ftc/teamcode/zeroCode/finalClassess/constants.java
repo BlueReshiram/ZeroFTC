@@ -79,6 +79,7 @@ public final class constants {
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = true;
         public static void initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
+            constants.telemetry = telemetry;
             if (initializeDrive) {
                 drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
                 drive.frontRightMotor = hardwareMap.get(DcMotor.class, drive.frontRightMotorName);

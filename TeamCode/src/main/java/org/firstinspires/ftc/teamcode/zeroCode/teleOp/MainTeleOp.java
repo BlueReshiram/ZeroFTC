@@ -15,8 +15,6 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void init() {
-        telemetry.addLine("Initiliing");
-        constants.telemetry = telemetry;
         constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
         robotDrive = new drive();
         webcam = new aprilTag();
