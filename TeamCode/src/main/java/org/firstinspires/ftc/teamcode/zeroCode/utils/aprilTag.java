@@ -1,8 +1,13 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.constants;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.fieldData;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagClusterDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -22,14 +27,19 @@ public class aprilTag {
     protected AprilTagProcessor aprilTagProcessor;
     protected VisionPortal visionPortal;
 
+    private boolean fastUpdatePose = false;
+
     public List<AprilTagDetection> detectedTags = new ArrayList<>();
     public Pose3D robotPose;
+    public Position robotPosition;
 
 
 
-    public aprilTag(){
+
+    public aprilTag(boolean fastUpdatePose){
         aprilTagProcessor = constants.webcam.aprilTagProcessor;
         visionPortal = constants.webcam.visionPortal;
+        this.fastUpdatePose = fastUpdatePose;
     }
 
     public void update(){
@@ -40,7 +50,10 @@ public class aprilTag {
 
         //Find the Pose3D of the robot
         for (AprilTagDetection CurrentTag : detectedTags) {
-            robotPose = CurrentTag.robotPose;
+            if (fastUpdatePose) {
+                robotPose = CurrentTag.robotPose;
+                robotPosition = robotPose.getPosition();
+            }
             if (CurrentTag instanceof AprilTagClusterDetection) {
                 AprilTagClusterDetection clusterDetection = (AprilTagClusterDetection) CurrentTag;
             } else if (CurrentTag instanceof AprilTagSingleDetection){
@@ -57,6 +70,14 @@ public class aprilTag {
         return detectedTags;
     }
 
+    public double angleToTag(fieldData.hiveTags tag){
+        double angle = 0;
+        double x = robotPosition.x;
+        double y = robotPosition.y;
 
+        return angle;
+
+
+    }
 
 }

@@ -25,10 +25,10 @@ public final class constants {
     public static final class field{
 
         //Might want to double check these values
-        public static final int[] AprilRedHiveDown = {30, 31, 32, 33};
-        public static final int[] AprilRedHiveUp = {34, 35, 36, 37};
-        public static final int[] AprilBlueHiveUp = {38, 39, 40, 41};
-        public static final int[] AprilBlueHiveDown = {42, 43, 44, 45};
+        public static final int[] AprilRedHiveFlower = {30, 31, 32, 33};
+        public static final int[] AprilRedHiveNoFlower = {34, 35, 36, 37};
+        public static final int[] AprilBlueHiveFlower = {38, 39, 40, 41};
+        public static final int[] AprilBlueHiveNoFlower = {42, 43, 44, 45};
     }
 
     public static final class robot{
@@ -36,6 +36,7 @@ public final class constants {
             BLUE,
             RED
         }
+
 
         public static double weight;
 
@@ -77,55 +78,77 @@ public final class constants {
         public static boolean initializeTurrets = false;
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
-        public static boolean initializeWebcam = true;
-        public static void initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
+        public static boolean initializeWebcam = false;
+        public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
             constants.telemetry = telemetry;
             if (initializeDrive) {
-                drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
-                drive.frontRightMotor = hardwareMap.get(DcMotor.class, drive.frontRightMotorName);
-                drive.backLeftMotor = hardwareMap.get(DcMotor.class, drive.backLeftMotorName);
-                drive.backRightMotor = hardwareMap.get(DcMotor.class, drive.backRightMotorName);
-                telemetry.addLine("Drive hardware maps initialized.");
+                try {
+                    drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
+                    drive.frontRightMotor = hardwareMap.get(DcMotor.class, drive.frontRightMotorName);
+                    drive.backLeftMotor = hardwareMap.get(DcMotor.class, drive.backLeftMotorName);
+                    drive.backRightMotor = hardwareMap.get(DcMotor.class, drive.backRightMotorName);
+                    telemetry.addLine("Drive hardware maps initialized.");
+                } catch (Exception e) {
+                    telemetry.addLine("Not all drive hardware maps configured.");
+                    telemetry.addLine("Drive hardware maps NOT initialized.");
+                    return false;
+                }
+
             } else {
                 telemetry.addLine("Drive hardware maps NOT initialized.");
             }
 
-            if (initializeIMU) {
-                imu.imu = hardwareMap.get(IMU.class, imu.imuName);
-                IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                        RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                        RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
-                // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
-                imu.imu.initialize(parameters);
 
-                telemetry.addLine("IMU hardware map initialized.");
+            if (initializeIMU) {
+                try {
+                    imu.imu = hardwareMap.get(IMU.class, imu.imuName);
+                    IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                            RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                            RevHubOrientationOnRobot.UsbFacingDirection.FORWARD));
+                    // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
+                    imu.imu.initialize(parameters);
+
+                    telemetry.addLine("IMU hardware map initialized.");
+                } catch (Exception e){
+                    telemetry.addLine("Not all IMU hardware maps configured.");
+                    telemetry.addLine("IMU hardware map NOT initialized.");
+                    return false;
+                }
             } else {
                 telemetry.addLine("IMU hardware map NOT initialized.");
             }
 
-            if (initializeWebcam){
-                webcam.aprilTagProcessor = new AprilTagProcessor.Builder()
-                        .setDrawTagID(true)
-                        .setDrawTagOutline(true)
-                        .setDrawAxes(true)
-                        .setDrawCubeProjection(true)
-                        .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
-                        .build();
+            if (initializeWebcam) {
+                try {
+                    webcam.aprilTagProcessor = new AprilTagProcessor.Builder()
+                            .setDrawTagID(true)
+                            .setDrawTagOutline(true)
+                            .setDrawAxes(true)
+                            .setDrawCubeProjection(true)
+                            .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
+                            .build();
 
-                VisionPortal.Builder builder = new VisionPortal.Builder();
-                builder.setCamera(hardwareMap.get(WebcamName.class, webcam.webcamName));
-                builder.setCameraResolution(new Size(640, 480));
-                builder.addProcessor(webcam.aprilTagProcessor);
+                    VisionPortal.Builder builder = new VisionPortal.Builder();
+                    builder.setCamera(hardwareMap.get(WebcamName.class, webcam.webcamName));
+                    builder.setCameraResolution(new Size(640, 480));
+                    builder.addProcessor(webcam.aprilTagProcessor);
 
-                webcam.visionPortal = builder.build();
+                    webcam.visionPortal = builder.build();
 
-                telemetry.addLine("Webcam and Vision Portal initialized.");
+                    telemetry.addLine("Webcam and Vision Portal initialized.");
+                } catch (Exception e){
+                    telemetry.addLine("Not all webcam/vision portal hardware maps configured.");
+                    telemetry.addLine("Webcam and Vision Portal NOT initialized.");
+                    return false;
+
+                }
             } else {
                 telemetry.addLine("Webcam and Vision Portal NOT initialized.");
             }
 
             telemetry.update();
 
+            return true;
         }
 
     }
