@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
 
 //This is a class from the drive class
-public class driveRC extends drive{
+public class DriveRC extends Drive {
     //Robot Centric Drive
     public double[] calculateDriveMecanumRC(double lx, double rx, double y){
         double denominator = Math.max(Math.abs(y) + Math.abs(lx) + Math.abs(rx), 1);

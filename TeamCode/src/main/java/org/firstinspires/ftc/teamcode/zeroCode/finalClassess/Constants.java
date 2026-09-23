@@ -1,12 +1,10 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
-
 import android.util.Size;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -19,7 +17,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 
-public final class constants {
+public final class Constants {
     public static Telemetry telemetry;
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
@@ -41,7 +39,15 @@ public final class constants {
         public static double weight;
 
         //Configure what alliance the robot is on here:
-        public static final alliance robotAlliance = alliance.RED;
+        public static alliance robotAlliance = alliance.RED;
+    }
+
+    public static final class turrets{
+        //The turret left and right is dependent on what way the robot is facing
+        public static final String turretLeftName = "turretL";
+        public static final String turretRightName = "turretR";
+        public static CRServo turretLeft;
+        public static CRServo turretRight;
     }
 
     public static final class webcam{
@@ -67,7 +73,7 @@ public final class constants {
 
         public static void resetYaw(){
             imu.resetYaw();
-            constants.telemetry.addLine("IMU Yaw has been reset.");
+            Constants.telemetry.addLine("IMU Yaw has been reset.");
         }
     }
 
@@ -80,7 +86,7 @@ public final class constants {
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = false;
         public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
-            constants.telemetry = telemetry;
+            Constants.telemetry = telemetry;
             if (initializeDrive) {
                 try {
                     drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
@@ -144,6 +150,21 @@ public final class constants {
                 }
             } else {
                 telemetry.addLine("Webcam and Vision Portal NOT initialized.");
+            }
+
+            if (initializeTurrets) {
+                try {
+                    turrets.turretLeft = hardwareMap.get(CRServo.class, turrets.turretLeftName);
+                    //We don't need the second turret right now
+                    //turrets.turretRight = hardwareMap.get(CRServo.class, turrets.turretRightName);
+                    telemetry.addLine("Turrets initialized.");
+                } catch (Exception e){
+                    telemetry.addLine("Not all turret hardware maps configured.");
+                    telemetry.addLine("Turret NOT initialized.");
+                    return false;
+                }
+            } else {
+                telemetry.addLine("Turret NOT initialized.");
             }
 
             telemetry.update();

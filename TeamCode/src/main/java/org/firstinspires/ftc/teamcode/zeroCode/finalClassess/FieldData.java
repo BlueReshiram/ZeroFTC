@@ -1,13 +1,12 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.robotcore.external.navigation.Position;
 
-public final class fieldData {
+public final class FieldData {
     /*A hive would be considered tipped, if the part that is closest to the flower is lower.
     * These starting values, I got from the CAD model. */
-    public static boolean blueAllianceHiveTipped = true;
-    public static boolean redAllianceHiveTipped = true;
+    public static boolean blueAllianceFacingAudiance = false;
+    public static boolean redAllianceFacingAudiance = true;
 
     //These varibles will probobly not be updated. If there is extra they may be incorporated though.
     public static int pollenInBlueHive = 0;
@@ -17,10 +16,12 @@ public final class fieldData {
 
     public static Pose3D robotPose;
 
+    //The Audiance Red Hive starts facing up
+    //The Scoring Blue Hive starts facing up
     public enum hiveTags{
-        flowerBlueHive,
-        notFlowerBlueHive,
-        flowerRedHive,
-        notFlowerRedHive
+        audianceBlueHive,
+        scoringBlueHive,
+        audianceRedHive,
+        scoringRedHive
     }
 }
