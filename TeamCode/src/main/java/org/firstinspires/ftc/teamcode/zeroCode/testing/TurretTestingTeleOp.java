@@ -16,6 +16,7 @@ public class TurretTestingTeleOp extends OpMode {
     private static AprilTag webcam;
     private static Pid pid;
     private Turret turret;
+    private boolean turretConnected;
     private static double turretPower;
 
     @Override
@@ -69,6 +70,9 @@ public class TurretTestingTeleOp extends OpMode {
             timerPID.reset();
         }
 
-        turret.powerTurret(Turret.Turrets.LEFT, turretPower);
+        turretConnected = turret.powerTurret(Turret.Turrets.LEFT, turretPower);
+        if (!turretConnected){
+            telemetry.addData("Turret is: ", "Not Connected");
+        }
     }
 }
