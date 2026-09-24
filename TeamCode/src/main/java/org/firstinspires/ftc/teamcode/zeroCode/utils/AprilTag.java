@@ -93,4 +93,9 @@ public class AprilTag {
         return detectedTags;
     }
 
+    public boolean isTagFacingUp(){
+        //Make an argument for the elevation or robot pose or something like that,
+        //Return if the tag that user asks for is facing up or down.
+        return false;
+    }
 }
