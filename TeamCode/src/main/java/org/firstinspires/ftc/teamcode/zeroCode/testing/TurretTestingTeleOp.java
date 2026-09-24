@@ -48,6 +48,7 @@ public class TurretTestingTeleOp extends OpMode {
     public void loop() {
         webcam.update();
 
+
         if (timerPID.time(TimeUnit.MILLISECONDS) >= 10.0){
             if (!Double.isNaN(webcam.bearingScoring)){
                 turretPower = pid.getOutput(globalTimer.time(), webcam.bearingScoring);
