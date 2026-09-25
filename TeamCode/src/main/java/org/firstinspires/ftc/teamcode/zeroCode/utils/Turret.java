@@ -13,8 +13,8 @@ public class Turret {
     }
 
     public Turret(){
-        leftTurret = Constants.turrets.turretRight;
-        rightTurret = Constants.turrets.turretLeft;
+        leftTurret = Constants.turrets.turretLeft;
+        rightTurret = Constants.turrets.turretRight;
     }
 
     public boolean powerTurret(Turrets turret, double power){
