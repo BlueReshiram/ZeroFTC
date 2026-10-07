@@ -14,6 +14,7 @@ public class VisionTestingTeleOp extends OpMode {
 
     @Override
     public void init() {
+        Constants.hardware.resetHardwareMaps(telemetry);
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
         april = new AprilTag(true);

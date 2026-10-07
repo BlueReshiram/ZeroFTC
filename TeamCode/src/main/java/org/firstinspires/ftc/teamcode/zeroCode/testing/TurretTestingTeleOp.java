@@ -23,6 +23,7 @@ public class TurretTestingTeleOp extends OpMode {
 
     @Override
     public void init() {
+        Constants.hardware.resetHardwareMaps(telemetry);
         Constants.hardware.initializeWebcam = true;
         //Constants.hardware.initializeTurrets = true;
 

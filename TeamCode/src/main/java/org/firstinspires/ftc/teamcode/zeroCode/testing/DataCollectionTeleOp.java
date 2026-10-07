@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.vision.apriltag.AprilTagClusterMetadata;
 import org.firstinspires.ftc.vision.apriltag.AprilTagGameDatabase;
 import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
@@ -18,6 +19,7 @@ public class DataCollectionTeleOp extends OpMode {
 
     @Override
     public void init() {
+        Constants.hardware.resetHardwareMaps(telemetry);
         //Red Hive Flower
         AprilTagLibrary aprilTagLibrary = AprilTagGameDatabase.getBioBuzzTagLibrary();
 

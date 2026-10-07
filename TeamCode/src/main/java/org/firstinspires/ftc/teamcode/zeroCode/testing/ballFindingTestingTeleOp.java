@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.vision.VisionPortal;
 
 @TeleOp(name="Main: TestingBallFinding", group="OpMode")
-public class ballFindingTesting extends OpMode {
+public class ballFindingTestingTeleOp extends OpMode {
     VisionPortal visionPortal;
     @Override
     public void init() {
