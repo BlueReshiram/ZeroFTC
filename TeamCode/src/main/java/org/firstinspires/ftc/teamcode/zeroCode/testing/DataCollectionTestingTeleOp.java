@@ -12,7 +12,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 
 //This class is just printing some data
 @TeleOp(name="Testing: dataCollectionV1", group="OpMode")
-public class DataCollectionTeleOp extends OpMode {
+public class DataCollectionTestingTeleOp extends OpMode {
 
     //Nevermind this whole class was useless
     //It turns out that AprilTagGameDatabase.getBioBuzztagLibrary works just fine
