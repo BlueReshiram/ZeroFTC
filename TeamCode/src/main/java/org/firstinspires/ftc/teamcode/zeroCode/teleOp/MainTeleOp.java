@@ -27,6 +27,7 @@ public class MainTeleOp extends OpMode {
 
     @Override
     public void init() {
+        Constants.hardware.resetHardwareMaps(telemetry);
         Constants.hardware.initializeDrive = true;
         Constants.hardware.initializeWebcam = true;
         Constants.hardware.initializeIMU = true;

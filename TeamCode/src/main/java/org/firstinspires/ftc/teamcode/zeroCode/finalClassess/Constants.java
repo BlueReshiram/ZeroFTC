@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
 
+import android.graphics.Color;
 import android.util.Size;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -15,6 +16,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
+import org.firstinspires.ftc.vision.opencv.ColorRange;
+import org.firstinspires.ftc.vision.opencv.ColorSpace;
+import org.firstinspires.ftc.vision.opencv.ImageRegion;
+import org.opencv.core.Scalar;
 
 
 public final class Constants {
@@ -50,10 +56,37 @@ public final class Constants {
         public static CRServo turretRight;
     }
 
-    public static final class webcam{
+    public static final class webcam {
         public static final String webcamName = "webcam";
-        public static AprilTagProcessor aprilTagProcessor;
+
         public static VisionPortal visionPortal;
+    }
+
+    public static final class aprilTags {
+        public static AprilTagProcessor aprilTagProcessor;
+    }
+
+    public static final class colorDetection {
+        public static ColorBlobLocatorProcessor colorLocator;
+        public static final ColorRange pollenColorRange = new ColorRange(
+                ColorSpace.YCrCb,
+                new Scalar( 32, 128,   0),
+                new Scalar(255, 170, 120)
+        );
+
+        public static final ColorRange blueNectarColorRange = new ColorRange(
+                ColorSpace.YCrCb,
+                new Scalar( 16,   0, 155),
+                new Scalar(255, 127, 255)
+        );
+
+        public static final ColorRange redNectarColorRange = new ColorRange(
+                ColorSpace.YCrCb,
+                new Scalar( 32, 176,  0),
+                new Scalar(255, 255, 132)
+        );
+
+
     }
 
     public static final class drive{
@@ -85,6 +118,24 @@ public final class Constants {
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = false;
+        public static boolean initializeColorBlobLocator = false;
+        public static boolean initializeAprilTags = false;
+        public static boolean resetHardwareMaps(Telemetry telemetry) {
+            initializeDrive = false;
+            initializeIMU = false;
+            initializeTurrets = false;
+            initializeIntake = false;
+            initializeLimelight = false;
+            initializeWebcam = false;
+            initializeColorBlobLocator = false;
+            initializeAprilTags = false;
+
+            telemetry.addLine("Hardware Maps reset.");
+            telemetry.update();
+
+            return true;
+        }
+
         public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
             Constants.telemetry = telemetry;
             if (initializeDrive) {
@@ -124,20 +175,57 @@ public final class Constants {
                 telemetry.addLine("IMU hardware map NOT initialized.");
             }
 
+            if (initializeColorBlobLocator) {
+                try {
+                    colorDetection.colorLocator = new ColorBlobLocatorProcessor.Builder()
+                            .setTargetColorRange( colorDetection.pollenColorRange)
+                            .setContourMode(ColorBlobLocatorProcessor.ContourMode.EXTERNAL_ONLY)
+                            .setRoi(ImageRegion.asUnityCenterCoordinates(-0.75, 0.75, 0.75, -0.75))
+                            .setDrawContours(true)   // Show contours on the Stream Preview
+                            .setBoxFitColor(0)       // Disable the drawing of rectangles
+                            .setCircleFitColor(Color.rgb(255, 255, 0)) // Draw a circle
+                            .setBlurSize(5)          // Smooth the transitions between different colors in image
+
+                            // the following options have been added to fill in perimeter holes.
+                            .setDilateSize(15)       // Expand blobs to fill any divots on the edges
+                            .setErodeSize(15)        // Shrink blobs back to original size
+                            .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
+
+                            .build();
+                    telemetry.addLine("Color Locator initialized.");
+                } catch (Exception e) {
+                    telemetry.addLine("Not all webcam hardware maps configured.");
+                    telemetry.addLine("Color Locator NOT initialized.");
+                    return false;
+                }
+            } else {
+                telemetry.addLine("Color Locator NOT initialized.");
+            }
+
+            if (initializeAprilTags) {
+                aprilTags.aprilTagProcessor = new AprilTagProcessor.Builder()
+                        .setDrawTagID(true)
+                        .setDrawTagOutline(true)
+                        .setDrawAxes(true)
+                        .setDrawCubeProjection(true)
+                        .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
+                        .build();
+            }
+
             if (initializeWebcam) {
                 try {
-                    webcam.aprilTagProcessor = new AprilTagProcessor.Builder()
-                            .setDrawTagID(true)
-                            .setDrawTagOutline(true)
-                            .setDrawAxes(true)
-                            .setDrawCubeProjection(true)
-                            .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
-                            .build();
+
 
                     VisionPortal.Builder builder = new VisionPortal.Builder();
                     builder.setCamera(hardwareMap.get(WebcamName.class, webcam.webcamName));
                     builder.setCameraResolution(new Size(640, 480));
-                    builder.addProcessor(webcam.aprilTagProcessor);
+
+                    if (initializeAprilTags) {
+                        builder.addProcessor(aprilTags.aprilTagProcessor);
+                    }
+                    if (initializeColorBlobLocator) {
+                        builder.addProcessor(colorDetection.colorLocator);
+                    }
 
                     webcam.visionPortal = builder.build();
 

@@ -34,7 +34,7 @@ public class AprilTag {
 
 
     public AprilTag(boolean fastUpdatePose){
-        aprilTagProcessor = Constants.webcam.aprilTagProcessor;
+        aprilTagProcessor = Constants.aprilTags.aprilTagProcessor;
         visionPortal = Constants.webcam.visionPortal;
         this.fastUpdatePose = fastUpdatePose;
     }

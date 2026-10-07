@@ -18,9 +18,6 @@ public class VisionTestingTeleOp extends OpMode {
 
         april = new AprilTag(true);
 
-
-
-
         telemetry.addLine("Robot Inlitized");
         telemetry.update();
 
