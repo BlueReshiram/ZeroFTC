@@ -70,8 +70,11 @@ public final class Constants {
         public static ColorBlobLocatorProcessor colorLocator;
         public static final ColorRange pollenColorRange = new ColorRange(
                 ColorSpace.YCrCb,
-                new Scalar( 32, 128,   0),
-                new Scalar(255, 170, 120)
+                //ORIGINAL:
+                //  new Scalar( 32, 128,   0),
+                //  new Scalar(255, 170, 120)
+                new Scalar(32, 128, 0),
+                new Scalar(255, 200, 60)
         );
 
         public static final ColorRange blueNectarColorRange = new ColorRange(
@@ -120,7 +123,7 @@ public final class Constants {
         public static boolean initializeWebcam = false;
         public static boolean initializeColorBlobLocator = false;
         public static boolean initializeAprilTags = false;
-        public static boolean resetHardwareMaps(Telemetry telemetry) {
+        public static void resetHardwareMaps(Telemetry telemetry) {
             initializeDrive = false;
             initializeIMU = false;
             initializeTurrets = false;
@@ -133,7 +136,6 @@ public final class Constants {
             telemetry.addLine("Hardware Maps reset.");
             telemetry.update();
 
-            return true;
         }
 
         public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
@@ -203,13 +205,21 @@ public final class Constants {
             }
 
             if (initializeAprilTags) {
-                aprilTags.aprilTagProcessor = new AprilTagProcessor.Builder()
-                        .setDrawTagID(true)
-                        .setDrawTagOutline(true)
-                        .setDrawAxes(true)
-                        .setDrawCubeProjection(true)
-                        .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
-                        .build();
+                try {
+                    aprilTags.aprilTagProcessor = new AprilTagProcessor.Builder()
+                            .setDrawTagID(true)
+                            .setDrawTagOutline(true)
+                            .setDrawAxes(true)
+                            .setDrawCubeProjection(true)
+                            .setOutputUnits(DistanceUnit.CM, AngleUnit.DEGREES)
+                            .build();
+                    telemetry.addLine("April Tags initialized.");
+                } catch (Exception e) {
+                    telemetry.addLine("Not all April Tags configured.");
+                    telemetry.addLine("April Tags NOT initialized.");
+                }
+            } else {
+                telemetry.addLine("April Tags NOT initialized.");
             }
 
             if (initializeWebcam) {

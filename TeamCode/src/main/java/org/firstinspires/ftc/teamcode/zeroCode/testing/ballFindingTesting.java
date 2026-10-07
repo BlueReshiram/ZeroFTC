@@ -9,6 +9,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 
 @TeleOp(name="Main: TestingBallFinding", group="OpMode")
 public class ballFindingTesting extends OpMode {
+    VisionPortal visionPortal;
     @Override
     public void init() {
         Constants.hardware.resetHardwareMaps(telemetry);
@@ -16,7 +17,7 @@ public class ballFindingTesting extends OpMode {
         Constants.hardware.initializeColorBlobLocator = true;
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
-        VisionPortal visionPortal = Constants.webcam.visionPortal;
+        visionPortal = Constants.webcam.visionPortal;
 
         telemetry.setMsTransmissionInterval(100);   // Speed up telemetry updates for debugging.
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
