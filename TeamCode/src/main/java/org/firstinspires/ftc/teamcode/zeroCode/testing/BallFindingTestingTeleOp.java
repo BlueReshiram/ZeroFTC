@@ -10,7 +10,7 @@ import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 
 import java.util.List;
 
-@TeleOp(name="Main: TestingBallFinding", group="OpMode")
+@TeleOp(name="TestingBallFinding", group="Testing")
 public class BallFindingTestingTeleOp extends OpMode {
     VisionPortal visionPortal;
     ColorBlobLocatorProcessor colorProcessor;

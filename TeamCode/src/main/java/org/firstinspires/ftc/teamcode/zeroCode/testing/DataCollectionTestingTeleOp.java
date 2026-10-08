@@ -11,7 +11,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 
 
 //This class is just printing some data
-@TeleOp(name="Testing: dataCollectionV1", group="OpMode")
+@TeleOp(name="DataCollectionV1", group="Testing")
 public class DataCollectionTestingTeleOp extends OpMode {
 
     //Nevermind this whole class was useless

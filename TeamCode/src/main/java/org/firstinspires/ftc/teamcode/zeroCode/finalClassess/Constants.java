@@ -28,7 +28,7 @@ public final class Constants {
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
 
-        //Might want to double check these values
+        //Might want to double-check these values
         public static final int[] AprilRedHiveFlower = {30, 31, 32, 33};
         public static final int[] AprilRedHiveNoFlower = {34, 35, 36, 37};
         public static final int[] AprilBlueHiveFlower = {38, 39, 40, 41};
@@ -199,6 +199,7 @@ public final class Constants {
                 } catch (Exception e) {
                     telemetry.addLine("Not all webcam hardware maps configured.");
                     telemetry.addLine("Color Locator NOT initialized.");
+                    telemetry.addLine("Error Initilizing");
                     return false;
                 }
             } else {

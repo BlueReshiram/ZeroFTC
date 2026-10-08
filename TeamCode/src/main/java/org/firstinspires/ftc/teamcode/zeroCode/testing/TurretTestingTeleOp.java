@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name="Testing: turretTestingV1", group="OpMode")
+@TeleOp(name="TurretTestingV1", group="Testing")
 public class TurretTestingTeleOp extends OpMode {
     private static ElapsedTime timerPID = new ElapsedTime();
     private static ElapsedTime globalTimer = new ElapsedTime();

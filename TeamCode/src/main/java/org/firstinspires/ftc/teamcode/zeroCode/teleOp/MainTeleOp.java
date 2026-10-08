@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
 
 import java.util.concurrent.TimeUnit;
 
-@TeleOp(name="Main: OpModeV1", group="OpMode")
+@TeleOp(name="OpModeV1", group="Main")
 public class MainTeleOp extends OpMode {
     private DriveFC robotDrive;
     private AprilTag webcam;

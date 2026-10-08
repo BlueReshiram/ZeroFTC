@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.AprilTag;
 import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 
-@TeleOp(name="Testing: VisionTesting", group="OpMode")
+@TeleOp(name="AprilTagVision", group="Testing")
 public class VisionTestingTeleOp extends OpMode {
     private static AprilTag april;
     private static AprilTagLibrary aprilTagLibrary;
