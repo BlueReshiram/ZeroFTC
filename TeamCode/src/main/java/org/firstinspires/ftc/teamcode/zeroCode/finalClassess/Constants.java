@@ -74,7 +74,8 @@ public final class Constants {
                 //  new Scalar( 32, 128,   0),
                 //  new Scalar(255, 170, 120)
                 new Scalar(32, 128, 0),
-                new Scalar(255, 200, 60)
+                new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
+                //Other color ranges will be determined based on the mathematical difference from Y
         );
 
         public static final ColorRange blueNectarColorRange = new ColorRange(
