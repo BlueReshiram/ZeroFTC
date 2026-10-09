@@ -5,16 +5,20 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
+import org.opencv.core.Point;
 
 import java.util.List;
 
 @TeleOp(name="TestingBallFinding", group="Testing")
 public class BallFindingTestingTeleOp extends OpMode {
-    VisionPortal visionPortal;
-    ColorBlobLocatorProcessor colorProcessor;
-    List<ColorBlobLocatorProcessor.Blob> detectedBlobs;
+    private VisionPortal visionPortal;
+    private ColorBlobLocatorProcessor colorProcessor;
+    private List<ColorBlobLocatorProcessor.Blob> detectedBlobs;
+    private ColorLocator colorLocator;
+
     @Override
     public void init() {
         Constants.hardware.resetHardwareMaps(telemetry);
@@ -25,7 +29,7 @@ public class BallFindingTestingTeleOp extends OpMode {
         visionPortal = Constants.webcam.visionPortal;
         colorProcessor = Constants.colorDetection.colorLocator;
 
-
+        colorLocator = new ColorLocator(colorProcessor);
 
         telemetry.setMsTransmissionInterval(100);   // Speed up telemetry updates for debugging.
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
@@ -36,10 +40,8 @@ public class BallFindingTestingTeleOp extends OpMode {
     @Override
     public void loop() {
         //Getting all the blobs of color
-        detectedBlobs = colorProcessor.getBlobs();
+        detectedBlobs = colorLocator.getBlobs();
 
-        for (ColorBlobLocatorProcessor.Blob blob : detectedBlobs) {
-            //This is where we check the blobs and create some ball objects later.
-        }
+        telemetry.addData("Bearing", colorLocator.getBearing());
     }
 }
