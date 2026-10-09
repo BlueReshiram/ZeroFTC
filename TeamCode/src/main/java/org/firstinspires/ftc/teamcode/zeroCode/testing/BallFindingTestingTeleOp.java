@@ -43,5 +43,7 @@ public class BallFindingTestingTeleOp extends OpMode {
         detectedBlobs = colorLocator.getBlobs();
 
         telemetry.addData("Bearing", colorLocator.getBearing());
+
+        telemetry.update();
     }
 }
