@@ -19,11 +19,11 @@ public class ColorLocator {
                         50,
                         20000 ));
 
-        processor.addFilter(
-                new ColorBlobLocatorProcessor.BlobFilter(
-                ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
-                0.6, 1)
-        );
+        //processor.addFilter(
+        //        new ColorBlobLocatorProcessor.BlobFilter(
+        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
+        //        0.6, 1)
+        //);
     }
 
     public List<ColorBlobLocatorProcessor.Blob> getBlobs() {

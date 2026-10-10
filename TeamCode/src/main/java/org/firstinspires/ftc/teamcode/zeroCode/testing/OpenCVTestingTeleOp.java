@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.zeroCode.testing;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -18,10 +19,10 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 import java.util.ArrayList;
 
-@TeleOp(name="OpenCV", group="Testing")
+@Autonomous(name="OpenCV", group="Testing")
 public class OpenCVTestingTeleOp extends OpMode {
-    static final int STREAM_WIDTH = 1920; // modify for your camera
-    static final int STREAM_HEIGHT = 1080; // modify for your camera
+    static final int STREAM_WIDTH = 640; // modify for your camera
+    static final int STREAM_HEIGHT = 480; // modify for your camera
     OpenCvWebcam webcam;
     SamplePipeline pipeline;
 
@@ -64,12 +65,12 @@ class SamplePipeline extends OpenCvPipeline {
     Mat RectA_Y = new Mat();
     int avg;
     int avgA;
-    static final int STREAM_WIDTH = 1920; // modify for your camera
-    static final int STREAM_HEIGHT = 1080; // modify for your camera
+    static final int STREAM_WIDTH = 640; // modify for your camera
+    static final int STREAM_HEIGHT = 480; // modify for your camera
 
 
-    static final int WidthRectA = 130;
-    static final int HeightRectA = 110;
+    static final int WidthRectA = 40;
+    static final int HeightRectA = 40;
 
 
     static final Point RectATopLeftAnchor = new Point((STREAM_WIDTH - WidthRectA) / 2 + 300, ((STREAM_HEIGHT - HeightRectA) / 2) - 100);
@@ -92,6 +93,9 @@ class SamplePipeline extends OpenCvPipeline {
         ArrayList<Mat> yCrCbChannels = new ArrayList<Mat>(3);
         Core.split(YCrCb, yCrCbChannels);
         Y = yCrCbChannels.get(0);
+        for (Mat i : yCrCbChannels){
+            i.release();
+        }
 
     }
 
