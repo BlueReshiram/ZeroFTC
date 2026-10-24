@@ -58,6 +58,10 @@ public final class Constants {
         public static final String webcamName = "webcam";
 
         public static VisionPortal visionPortal;
+
+        public static int cameraResWidth = 640;
+        public static int cameraResHeight = 480;
+        public static int FoV = 78;
     }
 
     public static final class aprilTags {
@@ -228,7 +232,7 @@ public final class Constants {
 
                     VisionPortal.Builder builder = new VisionPortal.Builder();
                     builder.setCamera(hardwareMap.get(WebcamName.class, webcam.webcamName));
-                    builder.setCameraResolution(new Size(640, 480));
+                    builder.setCameraResolution(new Size(webcam.cameraResWidth, webcam.cameraResHeight));
 
                     if (initializeAprilTags) {
                         builder.addProcessor(aprilTags.aprilTagProcessor);
@@ -238,6 +242,7 @@ public final class Constants {
                     }
 
                     webcam.visionPortal = builder.build();
+
 
                     telemetry.addLine("Webcam and Vision Portal initialized.");
                 } catch (Exception e){

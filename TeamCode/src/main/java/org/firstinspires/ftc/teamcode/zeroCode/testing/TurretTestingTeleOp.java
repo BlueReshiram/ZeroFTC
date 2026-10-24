@@ -17,8 +17,8 @@ public class TurretTestingTeleOp extends OpMode {
     private static ElapsedTime globalTimer = new ElapsedTime();
     private static AprilTag webcam;
     private static Pid pid;
-    private Turret turret;
-    private boolean turretConnected;
+    private static Turret turret;
+    private static boolean turretConnected;
     private static double turretPower;
 
     @Override

@@ -18,6 +18,7 @@ public class BallFindingTestingTeleOp extends OpMode {
     private ColorBlobLocatorProcessor colorProcessor;
     private List<ColorBlobLocatorProcessor.Blob> detectedBlobs;
     private ColorLocator colorLocator;
+    private Double bearing;
 
     @Override
     public void init() {
@@ -38,12 +39,24 @@ public class BallFindingTestingTeleOp extends OpMode {
     }
 
     @Override
-    public void loop() {
+    public void init_loop() {
+        super.init_loop();
         //Getting all the blobs of color
         detectedBlobs = colorLocator.getBlobs();
 
-        telemetry.addData("Bearing", colorLocator.getBearing());
+        telemetry.addData("Bearing Pos: ", colorLocator.getBearing());
+        telemetry.addData("X Pos: ", colorLocator.getXPosition());
 
         telemetry.update();
+
+    }
+
+    @Override
+    public void loop() {
+        bearing = colorLocator.getBearing();
+
+        telemetry.addData("Bearing Pos: ", bearing);
+
+
     }
 }

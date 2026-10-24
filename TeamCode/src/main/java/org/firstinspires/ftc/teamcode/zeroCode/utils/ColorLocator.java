@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.List;
 public class ColorLocator {
     private final ColorBlobLocatorProcessor processor;
     private Double bearing;
+    private Double xPos;
+    private Double angleConstant;
 
 
 
@@ -24,6 +27,8 @@ public class ColorLocator {
         //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
         //        0.6, 1)
         //);
+
+        angleConstant = (double)Constants.webcam.FoV/Constants.webcam.cameraResWidth;
     }
 
     public List<ColorBlobLocatorProcessor.Blob> getBlobs() {
@@ -35,9 +40,21 @@ public class ColorLocator {
             bearing = Double.NaN;
             return Double.NaN;
         } else {
-            bearing = getBlobs().get(0).getCircle().getCenter().x;
+            bearing =
+                    (getXPosition() - Constants.webcam.cameraResWidth/2)
+                    * angleConstant;
             return bearing;
         }
 
+    }
+
+    public Double getXPosition() {
+        if (getBlobs().isEmpty()) {
+            xPos = Double.NaN;
+            return Double.NaN;
+        } else {
+            xPos = getBlobs().get(0).getCircle().getCenter().x;
+            return xPos;
+        }
     }
 }
