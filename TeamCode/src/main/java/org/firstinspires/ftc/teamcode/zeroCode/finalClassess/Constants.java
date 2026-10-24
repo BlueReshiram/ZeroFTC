@@ -48,12 +48,10 @@ public final class Constants {
         public static alliance robotAlliance = alliance.RED;
     }
 
-    public static final class turrets{
+    public static final class turret {
         //The turret left and right is dependent on what way the robot is facing
-        public static final String turretLeftName = "turretL";
-        public static final String turretRightName = "turretR";
-        public static CRServo turretLeft;
-        public static CRServo turretRight;
+        public static final String turretName = "turret";
+        public static CRServo turret;
     }
 
     public static final class webcam {
@@ -118,7 +116,7 @@ public final class Constants {
 
         public static boolean initializeDrive = false;
         public static boolean initializeIMU = false;
-        public static boolean initializeTurrets = false;
+        public static boolean initializeTurret = false;
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = false;
@@ -127,7 +125,7 @@ public final class Constants {
         public static void resetHardwareMaps(Telemetry telemetry) {
             initializeDrive = false;
             initializeIMU = false;
-            initializeTurrets = false;
+            initializeTurret = false;
             initializeIntake = false;
             initializeLimelight = false;
             initializeWebcam = false;
@@ -252,9 +250,9 @@ public final class Constants {
                 telemetry.addLine("Webcam and Vision Portal NOT initialized.");
             }
 
-            if (initializeTurrets) {
+            if (initializeTurret) {
                 try {
-                    turrets.turretLeft = hardwareMap.get(CRServo.class, turrets.turretLeftName);
+                    turret.turret = hardwareMap.get(CRServo.class, turret.turretName);
                     //We don't need the second turret right now
                     //turrets.turretRight = hardwareMap.get(CRServo.class, turrets.turretRightName);
                     telemetry.addLine("Turrets initialized.");

@@ -5,26 +5,14 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 
 public class Turret {
-    private CRServo leftTurret;
-    private CRServo rightTurret;
-    public enum Turrets{
-        LEFT,
-        RIGHT
-    }
+    private CRServo turret;
 
     public Turret(){
-        leftTurret = Constants.turrets.turretLeft;
-        rightTurret = Constants.turrets.turretRight;
+        turret = Constants.turret.turret;
     }
 
-    public boolean powerTurret(Turrets turret, double power){
-        if (turret == Turrets.LEFT){
-            leftTurret.setPower(power);
-        } else if (turret == Turrets.RIGHT) {
-            rightTurret.setPower(power);
-        } else {
-            return false;
-        }
+    public boolean powerTurret( double power){
+        turret.setPower(power);
         return true;
     }
 }

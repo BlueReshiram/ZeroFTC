@@ -68,7 +68,7 @@ public class MainTeleOp extends OpMode {
 
         if (timerPID.time(TimeUnit.MILLISECONDS) >= 10.0){
             if (!Double.isNaN(webcam.bearingScoring)){
-                turret.powerTurret(Turret.Turrets.LEFT, pid.getOutput(globalTimer.time(), webcam.bearingScoring));
+                turret.powerTurret(pid.getOutput(globalTimer.time(), webcam.bearingScoring));
             } else if (!Double.isNaN(webcam.bearingAudience)) {
                 turretPower = pid.getOutput(globalTimer.time(), webcam.bearingAudience);
             }
