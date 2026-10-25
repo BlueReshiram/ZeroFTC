@@ -62,6 +62,8 @@ public final class Constants {
         public static int cameraResWidth = 640;
         public static int cameraResHeight = 480;
         public static int FoV = 78;
+        public static double focalLength = 395.3;
+        public static double heightAboveField = 28.7;
     }
 
     public static final class aprilTags {

@@ -14,6 +14,12 @@ public final class FieldData {
     public static int pollenInRedHive = 0;
     public static int nectarInRedHive = 0;
 
+    //All in CM
+    public static double pollenDiameter = 7.112;
+    public static double pollenRadius = pollenDiameter/2;
+    public static double nectarDiameter = 9.144;
+    public static double nectarRadius = nectarDiameter/2;
+
     public static Pose3D robotPose;
 
     //The Audiance Red Hive starts facing up

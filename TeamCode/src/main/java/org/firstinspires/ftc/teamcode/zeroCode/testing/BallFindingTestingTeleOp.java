@@ -46,6 +46,7 @@ public class BallFindingTestingTeleOp extends OpMode {
 
         telemetry.addData("Bearing Pos: ", colorLocator.getBearing());
         telemetry.addData("X Pos: ", colorLocator.getXPosition());
+        telemetry.addData("Distance (CM): ", colorLocator.getDistance());
 
         telemetry.update();
 

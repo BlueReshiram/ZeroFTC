@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 
 import java.util.List;
@@ -9,8 +10,11 @@ public class ColorLocator {
     private final ColorBlobLocatorProcessor processor;
     private Double bearing;
     private Double xPos;
-    private Double angleConstant;
+    private Double focalLength;
+    private Double distance;
 
+    private Double pollenRad;
+    private Double nectarRad;
 
 
     public ColorLocator(ColorBlobLocatorProcessor colorProcessor){
@@ -28,7 +32,9 @@ public class ColorLocator {
         //        0.6, 1)
         //);
 
-        angleConstant = (double)Constants.webcam.FoV/Constants.webcam.cameraResWidth;
+        focalLength = Constants.webcam.focalLength;
+        pollenRad = FieldData.pollenRadius;
+        nectarRad = FieldData.nectarRadius;
     }
 
     public List<ColorBlobLocatorProcessor.Blob> getBlobs() {
@@ -41,11 +47,23 @@ public class ColorLocator {
             return Double.NaN;
         } else {
             bearing =
-                    (getXPosition() - Constants.webcam.cameraResWidth/2)
-                    * angleConstant;
+                    Math.toDegrees(Math.atan2((getXPosition() - (double) Constants.webcam.cameraResWidth /2), focalLength));
             return bearing;
+
+
         }
 
+    }
+
+    public Double getDistance() {
+        if (getBlobs().isEmpty()) {
+            distance = Double.NaN;
+            return distance;
+        } else {
+            distance = (focalLength * pollenRad) / (getBlobs().get(0).getCircle().getRadius());
+            return distance;
+
+        }
     }
 
     public Double getXPosition() {
