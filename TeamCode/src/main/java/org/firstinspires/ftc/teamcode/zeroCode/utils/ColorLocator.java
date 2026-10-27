@@ -26,11 +26,11 @@ public class ColorLocator {
                         50,
                         20000 ));
 
-        //processor.addFilter(
-        //        new ColorBlobLocatorProcessor.BlobFilter(
-        //        ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
-        //        0.6, 1)
-        //);
+        processor.addFilter(
+                new ColorBlobLocatorProcessor.BlobFilter(
+               ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
+               0.6, 1)
+        );
 
         focalLength = Constants.webcam.focalLength;
         pollenRad = FieldData.pollenRadius;

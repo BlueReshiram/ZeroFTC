@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -73,14 +74,16 @@ public final class Constants {
     public static final class colorDetection {
         public static ColorBlobLocatorProcessor colorLocator;
         public static final ColorRange pollenColorRange = new ColorRange(
-                ColorSpace.YCrCb,
+                ColorSpace.HSV,
                 //ORIGINAL:
-                //  new Scalar( 32, 128,   0),
-                //  new Scalar(255, 170, 120)
-                new Scalar(32, 128, 0),
-                new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
+                new Scalar(20, 100, 160),
+                new Scalar(35, 255, 255)
+                //new Scalar(32, 128, 0),
+                //new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
                 //Other color ranges will be determined based on the mathematical difference from Y
         );
+
+        //ColorRange.YELLOW;
 
         public static final ColorRange blueNectarColorRange = new ColorRange(
                 ColorSpace.YCrCb,
@@ -199,6 +202,8 @@ public final class Constants {
                             .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
 
                             .build();
+
+
                     telemetry.addLine("Color Locator initialized.");
                 } catch (Exception e) {
                     telemetry.addLine("Not all webcam hardware maps configured.");
