@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -8,13 +9,10 @@ import java.util.List;
 
 public class ColorLocator {
     private final ColorBlobLocatorProcessor processor;
-    private Double bearing;
-    private Double xPos;
-    private Double focalLength;
-    private Double distance;
+    private double focalLength;
 
-    private Double pollenRad;
-    private Double nectarRad;
+    private double pollenRad;
+    private double nectarRad;
 
 
     public ColorLocator(ColorBlobLocatorProcessor colorProcessor){
@@ -26,11 +24,11 @@ public class ColorLocator {
                         50,
                         20000 ));
 
-        processor.addFilter(
-                new ColorBlobLocatorProcessor.BlobFilter(
-               ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
-               0.6, 1)
-        );
+        //processor.addFilter(
+        //        new ColorBlobLocatorProcessor.BlobFilter(
+        //       ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
+        //       0.6, 1)
+        //);
 
         focalLength = Constants.webcam.focalLength;
         pollenRad = FieldData.pollenRadius;
@@ -42,37 +40,56 @@ public class ColorLocator {
     }
 
     public Double getBearing() {
+        double bearing;
         if (getBlobs().isEmpty()) {
             bearing = Double.NaN;
-            return Double.NaN;
+
         } else {
             bearing =
                     Math.toDegrees(Math.atan2((getXPosition() - (double) Constants.webcam.cameraResWidth /2), focalLength));
-            return bearing;
-
-
         }
+
+        return bearing;
 
     }
 
-    public Double getDistance() {
+    public Double getDistance3() {
+        double distance3;
         if (getBlobs().isEmpty()) {
-            distance = Double.NaN;
-            return distance;
+            distance3 = Double.NaN;
         } else {
-            distance = (focalLength * pollenRad) / (getBlobs().get(0).getCircle().getRadius());
-            return distance;
+            distance3 = (focalLength * pollenRad) / (getBlobs().get(0).getCircle().getRadius());
 
         }
+
+        return distance3;
     }
+
+    public Double getDistance2() {
+        double distance2;
+        if (getBlobs().isEmpty()) {
+            distance2 = Double.NaN;
+        } else {
+            distance2 =
+                Math.sqrt(
+                    getDistance3() * getDistance3() -
+
+                    Constants.webcam.heightAboveField * Constants.webcam.heightAboveField
+            );
+        }
+
+        return distance2;
+    }
+
 
     public Double getXPosition() {
+        double xPos;
         if (getBlobs().isEmpty()) {
             xPos = Double.NaN;
-            return Double.NaN;
         } else {
             xPos = getBlobs().get(0).getCircle().getCenter().x;
-            return xPos;
         }
+
+        return xPos;
     }
 }

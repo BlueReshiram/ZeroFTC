@@ -8,7 +8,6 @@ import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
-import org.opencv.core.Point;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class BallFindingTestingTeleOp extends OpMode {
 
         telemetry.addData("Bearing Pos: ", colorLocator.getBearing());
         telemetry.addData("X Pos: ", colorLocator.getXPosition());
-        telemetry.addData("Distance (CM): ", colorLocator.getDistance());
+        telemetry.addData("Distance 2 (CM): ", colorLocator.getDistance2());
 
         telemetry.update();
 

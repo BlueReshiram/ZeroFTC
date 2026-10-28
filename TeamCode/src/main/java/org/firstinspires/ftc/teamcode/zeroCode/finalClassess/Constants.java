@@ -63,8 +63,8 @@ public final class Constants {
         public static int cameraResWidth = 640;
         public static int cameraResHeight = 480;
         public static int FoV = 78;
-        public static double focalLength = 395.3;
-        public static double heightAboveField = 28.7;
+        public static double focalLength = 660.3;
+        public static double heightAboveField = 22.7;
     }
 
     public static final class aprilTags {
@@ -74,12 +74,13 @@ public final class Constants {
     public static final class colorDetection {
         public static ColorBlobLocatorProcessor colorLocator;
         public static final ColorRange pollenColorRange = new ColorRange(
-                ColorSpace.HSV,
+                ColorSpace.YCrCb,
+                //ColorSpace.HSV,
                 //ORIGINAL:
-                new Scalar(20, 100, 160),
-                new Scalar(35, 255, 255)
-                //new Scalar(32, 128, 0),
-                //new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
+                //new Scalar(20, 100, 160),
+                //new Scalar(35, 255, 255)
+                new Scalar(32, 128, 0),
+                new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
                 //Other color ranges will be determined based on the mathematical difference from Y
         );
 
@@ -111,7 +112,7 @@ public final class Constants {
         public static DcMotor backRightMotor;
     }
 
-    public static final class imu{
+    public static final class imu {
         public static final String imuName = "imu";
         public static IMU imu;
 
