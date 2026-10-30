@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.LiveMap;
 
 public final class FieldData {
     /*A hive would be considered tipped, if the part that is closest to the flower is lower.
@@ -21,6 +22,8 @@ public final class FieldData {
     public static double nectarRadius = nectarDiameter/2;
 
     public static Pose3D robotPose;
+
+    public static LiveMap fieldMap;
 
     //The Audiance Red Hive starts facing up
     //The Scoring Blue Hive starts facing up
