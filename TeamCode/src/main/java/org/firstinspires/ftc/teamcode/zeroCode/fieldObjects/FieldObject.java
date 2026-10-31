@@ -6,6 +6,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.LiveMap;
 
+import java.util.Arrays;
+
 public class FieldObject {
     private double positionX = Double.NaN;
     private double positionY = Double.NaN;
@@ -20,11 +22,39 @@ public class FieldObject {
     public LiveMap getLiveMap(){return currentLiveMap;}
 
     public boolean removeFromMap(){
-        if (getLiveMap() != null) {
-            currentLiveMap.
+        if (currentLiveMap != null) {
+            currentLiveMap.removeObject(this);
+            return true;
         }
         return false;
     }
+
+    public boolean removeFromMap(LiveMap map) {
+        if (Arrays.asList(map.getObjects()).contains(this)) {
+            map.removeObject(this);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean addToMap() {
+        if (currentLiveMap != null) {
+            currentLiveMap.addObject(this);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean addToMap(LiveMap map) {
+        if (Arrays.asList(map.getObjects()).contains(this)) {
+            map.addObject(this);
+            return true;
+        }
+        return false;
+    }
+
+
 
 
 
@@ -69,6 +99,6 @@ public class FieldObject {
         this.angle = pose3D.getOrientation().getYaw();
     }
 
-    public FieldObject(){
-    }
+    public FieldObject(){}
+
 }

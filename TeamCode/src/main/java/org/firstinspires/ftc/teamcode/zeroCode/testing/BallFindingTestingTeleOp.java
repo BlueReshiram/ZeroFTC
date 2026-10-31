@@ -4,7 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -56,6 +60,8 @@ public class BallFindingTestingTeleOp extends OpMode {
         bearing = colorLocator.getBearing();
 
         telemetry.addData("Bearing Pos: ", bearing);
+
+        FieldData.updateRobotPose(new Pose2D(DistanceUnit.CM,0,0, AngleUnit.DEGREES,0));
 
 
     }

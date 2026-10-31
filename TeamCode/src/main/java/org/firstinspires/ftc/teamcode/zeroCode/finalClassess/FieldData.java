@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
+import com.pedropathing.math.Pose;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.LiveMap;
 
@@ -21,7 +24,7 @@ public final class FieldData {
     public static double nectarDiameter = 9.144;
     public static double nectarRadius = nectarDiameter/2;
 
-    public static Pose3D robotPose;
+    private static Pose2D robotPose;
 
     public static LiveMap fieldMap;
 
@@ -33,4 +36,7 @@ public final class FieldData {
         audianceRedHive,
         scoringRedHive
     }
+
+    public static void updateRobotPose(Pose2D pose2D) {robotPose = pose2D;}
+    public static Pose2D getPose2D() {return robotPose;}
 }
