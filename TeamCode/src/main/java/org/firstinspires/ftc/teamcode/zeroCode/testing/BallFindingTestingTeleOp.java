@@ -33,7 +33,7 @@ public class BallFindingTestingTeleOp extends OpMode {
         visionPortal = Constants.webcam.visionPortal;
         colorProcessor = Constants.colorDetection.colorLocator;
 
-        colorLocator = new ColorLocator(colorProcessor);
+        colorLocator = new ColorLocator(colorProcessor, telemetry);
 
         telemetry.setMsTransmissionInterval(100);   // Speed up telemetry updates for debugging.
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);
@@ -44,12 +44,15 @@ public class BallFindingTestingTeleOp extends OpMode {
     @Override
     public void init_loop() {
         super.init_loop();
+
+        FieldData.updateRobotPose(new Pose2D(DistanceUnit.CM,0,0,AngleUnit.DEGREES,0));
+
         //Getting all the blobs of color
         detectedBlobs = colorLocator.getBlobs();
 
-        telemetry.addData("Bearing Pos: ", colorLocator.getBearing());
-        telemetry.addData("X Pos: ", colorLocator.getXPosition());
-        telemetry.addData("Distance 2 (CM): ", colorLocator.getDistance2());
+        telemetry.addData("Bearing: ", colorLocator.getBearing(0));
+        telemetry.addData("X Pos: ", colorLocator.getXPosition(0));
+        telemetry.addData("Distance 2 (CM): ", colorLocator.getDistance2(0));
 
         telemetry.update();
 
@@ -57,11 +60,22 @@ public class BallFindingTestingTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        bearing = colorLocator.getBearing();
+        bearing = colorLocator.getBearing(0);
 
-        telemetry.addData("Bearing Pos: ", bearing);
+        telemetry.addData("Bearing: ", bearing);
+        telemetry.addData("Distance 2 (CM): ", colorLocator.getDistance2(0));
+        Pose2D absoulutePose2D = colorLocator.getObjectAbsolutePose(0);
+        if (absoulutePose2D != null) {
+            telemetry.addData("Ball X: ", absoulutePose2D.getX(DistanceUnit.CM));
+            telemetry.addData("Ball Y: ", absoulutePose2D.getY(DistanceUnit.CM));
+        } else {
+            telemetry.addData("Ball X: ", "null");
+            telemetry.addData("Ball Y: ", "null");
+        }
 
         FieldData.updateRobotPose(new Pose2D(DistanceUnit.CM,0,0, AngleUnit.DEGREES,0));
+
+        telemetry.update();
 
 
     }

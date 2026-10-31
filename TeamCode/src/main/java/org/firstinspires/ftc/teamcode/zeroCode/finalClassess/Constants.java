@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -53,6 +54,15 @@ public final class Constants {
         //The turret left and right is dependent on what way the robot is facing
         public static final String turretName = "turret";
         public static CRServo turret;
+    }
+
+    public static final class shooter {
+        public static final String hoodName = "hood";
+        public static final String leverServo1Name = "lever1";
+        public static final String leverServo2Name = "lever2";
+        public static Servo hood;
+        public static Servo leverServo1;
+        public static Servo leverServo2;
     }
 
     public static final class webcam {
@@ -127,6 +137,7 @@ public final class Constants {
         public static boolean initializeDrive = false;
         public static boolean initializeIMU = false;
         public static boolean initializeTurret = false;
+        public static boolean initializeShooter = false;
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = false;
@@ -136,6 +147,7 @@ public final class Constants {
             initializeDrive = false;
             initializeIMU = false;
             initializeTurret = false;
+            initializeShooter = false;
             initializeIntake = false;
             initializeLimelight = false;
             initializeWebcam = false;
@@ -276,6 +288,21 @@ public final class Constants {
                 }
             } else {
                 telemetry.addLine("Turret NOT initialized.");
+            }
+
+            if (initializeShooter) {
+                try {
+                    shooter.hood = hardwareMap.get(Servo.class, shooter.hoodName);
+                    shooter.leverServo1 = hardwareMap.get(Servo.class, shooter.leverServo1Name);
+                    shooter.leverServo2 = hardwareMap.get(Servo.class, shooter.leverServo2Name);
+                    telemetry.addLine("Shooter parts initialized.");
+                } catch (Exception e){
+                    telemetry.addLine("Not all shooter hardware maps configured.");
+                    telemetry.addLine("Shooter parts NOT initialized.");
+                    return false;
+                }
+            } else {
+                telemetry.addLine("Shooter parts NOT initialized.");
             }
 
             telemetry.update();
