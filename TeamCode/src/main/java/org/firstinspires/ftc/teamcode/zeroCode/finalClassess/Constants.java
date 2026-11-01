@@ -9,11 +9,13 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -54,6 +56,15 @@ public final class Constants {
         public static CRServo turret;
     }
 
+    public static final class shooter {
+        public static final String hoodName = "hood";
+        public static final String leverServo1Name = "lever1";
+        public static final String leverServo2Name = "lever2";
+        public static Servo hood;
+        public static Servo leverServo1;
+        public static Servo leverServo2;
+    }
+
     public static final class webcam {
         public static final String webcamName = "webcam";
 
@@ -62,8 +73,8 @@ public final class Constants {
         public static int cameraResWidth = 640;
         public static int cameraResHeight = 480;
         public static int FoV = 78;
-        public static double focalLength = 395.3;
-        public static double heightAboveField = 28.7;
+        public static double focalLength = 660.3;
+        public static double heightAboveField = 22.7;
     }
 
     public static final class aprilTags {
@@ -74,13 +85,16 @@ public final class Constants {
         public static ColorBlobLocatorProcessor colorLocator;
         public static final ColorRange pollenColorRange = new ColorRange(
                 ColorSpace.YCrCb,
+                //ColorSpace.HSV,
                 //ORIGINAL:
-                //  new Scalar( 32, 128,   0),
-                //  new Scalar(255, 170, 120)
+                //new Scalar(20, 100, 160),
+                //new Scalar(35, 255, 255)
                 new Scalar(32, 128, 0),
                 new Scalar(255, 200, 60) //Reduces end point for direct yellow identification.
                 //Other color ranges will be determined based on the mathematical difference from Y
         );
+
+        //ColorRange.YELLOW;
 
         public static final ColorRange blueNectarColorRange = new ColorRange(
                 ColorSpace.YCrCb,
@@ -108,7 +122,7 @@ public final class Constants {
         public static DcMotor backRightMotor;
     }
 
-    public static final class imu{
+    public static final class imu {
         public static final String imuName = "imu";
         public static IMU imu;
 
@@ -123,6 +137,7 @@ public final class Constants {
         public static boolean initializeDrive = false;
         public static boolean initializeIMU = false;
         public static boolean initializeTurret = false;
+        public static boolean initializeShooter = false;
         public static boolean initializeIntake = false;
         public static boolean initializeLimelight = false;
         public static boolean initializeWebcam = false;
@@ -132,6 +147,7 @@ public final class Constants {
             initializeDrive = false;
             initializeIMU = false;
             initializeTurret = false;
+            initializeShooter = false;
             initializeIntake = false;
             initializeLimelight = false;
             initializeWebcam = false;
@@ -199,6 +215,8 @@ public final class Constants {
                             .setMorphOperationType(ColorBlobLocatorProcessor.MorphOperationType.CLOSING)
 
                             .build();
+
+
                     telemetry.addLine("Color Locator initialized.");
                 } catch (Exception e) {
                     telemetry.addLine("Not all webcam hardware maps configured.");
@@ -270,6 +288,21 @@ public final class Constants {
                 }
             } else {
                 telemetry.addLine("Turret NOT initialized.");
+            }
+
+            if (initializeShooter) {
+                try {
+                    shooter.hood = hardwareMap.get(Servo.class, shooter.hoodName);
+                    shooter.leverServo1 = hardwareMap.get(Servo.class, shooter.leverServo1Name);
+                    shooter.leverServo2 = hardwareMap.get(Servo.class, shooter.leverServo2Name);
+                    telemetry.addLine("Shooter parts initialized.");
+                } catch (Exception e){
+                    telemetry.addLine("Not all shooter hardware maps configured.");
+                    telemetry.addLine("Shooter parts NOT initialized.");
+                    return false;
+                }
+            } else {
+                telemetry.addLine("Shooter parts NOT initialized.");
             }
 
             telemetry.update();
