@@ -13,17 +13,19 @@ public class FieldObject {
     private double positionY = Double.NaN;
     private double positionZ = Double.NaN;
     private double angle = Double.NaN;
-    public LiveMap currentLiveMap = null;
+    private LiveMap currentLiveMap = null;
 
     public double getX(){return positionX;}
     public double getY(){return positionY;}
     public double getZ(){return positionZ;}
     public double getAngle(){return angle;}
     public LiveMap getLiveMap(){return currentLiveMap;}
+    public void setCurrentLiveMap(LiveMap map) {currentLiveMap = map;}
 
     public boolean removeFromMap(){
         if (currentLiveMap != null) {
             currentLiveMap.removeObject(this);
+            currentLiveMap = null;
             return true;
         }
         return false;
@@ -32,6 +34,7 @@ public class FieldObject {
     public boolean removeFromMap(LiveMap map) {
         if (Arrays.asList(map.getObjects()).contains(this)) {
             map.removeObject(this);
+            if (currentLiveMap == map) currentLiveMap = null;
             return true;
         } else {
             return false;

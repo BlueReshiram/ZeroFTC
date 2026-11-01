@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.zeroCode.fieldObjects.Ball;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.ColorLocator;
@@ -33,7 +34,7 @@ public class BallFindingTestingTeleOp extends OpMode {
         visionPortal = Constants.webcam.visionPortal;
         colorProcessor = Constants.colorDetection.colorLocator;
 
-        colorLocator = new ColorLocator(colorProcessor, telemetry);
+        colorLocator = new ColorLocator(colorProcessor, telemetry, Ball.BallType.POLLEN);
 
         telemetry.setMsTransmissionInterval(100);   // Speed up telemetry updates for debugging.
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);

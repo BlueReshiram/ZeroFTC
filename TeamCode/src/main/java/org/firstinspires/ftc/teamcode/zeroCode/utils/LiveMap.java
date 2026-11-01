@@ -16,8 +16,20 @@ public class LiveMap {
     public static void setLiveMap(LiveMap map) {currentLiveMap=map;}
     public static LiveMap getLiveMap() {return currentLiveMap;}
     public FieldObject[] getObjects() {return objects.toArray(new FieldObject[0]);}
-    public boolean addObject(FieldObject object) {return objects.add(object);}
-    public boolean addObjects(FieldObject[] objects) {return this.objects.addAll(Arrays.asList(objects));}
-    public boolean removeObject(FieldObject object) {return objects.remove(object);}
-    public boolean removeObjects(FieldObject[] objects) {return this.objects.removeAll(Arrays.asList(objects));}
+    public boolean addObject(FieldObject object) {object.setCurrentLiveMap(this); return objects.add(object);}
+    public boolean addObjects(FieldObject[] objects) {
+        for (FieldObject object : objects) {
+            object.setCurrentLiveMap(this);
+        }
+        return this.objects.addAll(Arrays.asList(objects));}
+    public boolean removeObject(FieldObject object) {
+        if (object.getLiveMap() == this) object.setCurrentLiveMap(null);
+        return objects.remove(object);
+    }
+    public boolean removeObjects(FieldObject[] objects) {
+        for (FieldObject object : objects) {
+            if (object.getLiveMap() == this) object.setCurrentLiveMap(null);
+        }
+        return this.objects.removeAll(Arrays.asList(objects));
+    }
 }

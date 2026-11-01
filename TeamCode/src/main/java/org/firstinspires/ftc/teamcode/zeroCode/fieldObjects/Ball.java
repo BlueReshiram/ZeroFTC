@@ -1,16 +1,23 @@
 package org.firstinspires.ftc.teamcode.zeroCode.fieldObjects;
 
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
+import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 
 public class Ball extends FieldObject{
     public enum BallType{
-        POLLEN,
-        RED_NECTAR,
-        BLUE_NECTAR
+        POLLEN(FieldData.pollenRadius),
+        RED_NECTAR(FieldData.nectarRadius),
+        BLUE_NECTAR(FieldData.nectarRadius);
+
+        private final double radius;
+        BallType(double rad) {radius = rad;}
+        public double getRadius() {return radius;}
     }
 
     public BallType ballType;
+
 
     public Ball(BallType ballType) {
         super(); this.ballType = ballType;}

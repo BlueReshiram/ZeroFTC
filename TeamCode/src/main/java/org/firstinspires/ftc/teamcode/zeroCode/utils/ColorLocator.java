@@ -4,6 +4,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.zeroCode.fieldObjects.Ball;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -14,13 +15,12 @@ public class ColorLocator {
     private final ColorBlobLocatorProcessor processor;
     private final double focalLength;
 
-    private final double pollenRad;
-    private final double nectarRad;
     private Pose2D objectPose;
     private double fullBearing;
     private Telemetry telemetry;
+    private Ball.BallType ballType;
 
-    public ColorLocator(ColorBlobLocatorProcessor colorProcessor, Telemetry telemetry){
+    public ColorLocator(ColorBlobLocatorProcessor colorProcessor, Telemetry telemetry, Ball.BallType ballType){
         processor = colorProcessor;
 
         processor.addFilter(
@@ -37,10 +37,10 @@ public class ColorLocator {
 
         this.telemetry = telemetry;
 
+        this.ballType = ballType;
+
 
         focalLength = Constants.webcam.focalLength;
-        pollenRad = FieldData.pollenRadius;
-        nectarRad = FieldData.nectarRadius;
     }
 
     public List<ColorBlobLocatorProcessor.Blob> getBlobs() {
@@ -69,8 +69,7 @@ public class ColorLocator {
         if (ID >= getBlobs().size()) {
             distance3 = Double.NaN;
         } else {
-            distance3 = (focalLength * pollenRad) / (getBlobs().get(ID).getCircle().getRadius());
-
+            distance3 = (focalLength * ballType.getRadius()) / (getBlobs().get(ID).getCircle().getRadius());
         }
 
         return distance3;
@@ -83,8 +82,8 @@ public class ColorLocator {
         } else {
             distance2 =
                 Math.sqrt(
-                    getDistance3(ID) * getDistance3(ID) -
-
+                    getDistance3(ID) * getDistance3(ID)
+                    -
                     Constants.webcam.heightAboveField * Constants.webcam.heightAboveField
             );
         }
@@ -126,8 +125,6 @@ public class ColorLocator {
 
     public Double getXPosition(int ID) {
         double xPos;
-
-
         if (ID >= getBlobs().size()) {
             xPos = Double.NaN;
         } else {
