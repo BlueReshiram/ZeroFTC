@@ -96,8 +96,8 @@ public class ColorLocator {
             objectPose = null;
         } else {
             fullBearing = ( getBearing(ID) + FieldData.getPose2D().getHeading(AngleUnit.DEGREES) ) % 360;
-            double xPos = getDistance2(ID) * Math.cos(fullBearing);
-            double yPos = getDistance2(ID) * Math.sin(fullBearing);
+            double xPos = getDistance2(ID) * Math.cos(Math.toRadians(fullBearing));
+            double yPos = getDistance2(ID) * Math.sin(Math.toRadians(fullBearing));
             objectPose = new Pose2D(DistanceUnit.CM,xPos,yPos,AngleUnit.DEGREES,fullBearing);
         }
 
@@ -107,16 +107,11 @@ public class ColorLocator {
     public Pose2D getObjectAbsolutePose(int ID){
         if (ID >= getBlobs().size()) {
             objectPose = null;
-            telemetry.addData("Object Pose Status: ", "Null");
         } else {
             fullBearing = ( getBearing(ID) ) % 360; // + FieldData.getPose2D().getHeading(AngleUnit.DEGREES)
-            telemetry.addData("Ball Bearing Inside: ", fullBearing);
-            double xPos = getDistance2(ID) * Math.cos(fullBearing); // + FieldData.getPose2D().getX(DistanceUnit.CM)
-            telemetry.addData("Ball X Inside: " , xPos);
-            double yPos = getDistance2(ID) * Math.sin(fullBearing); // + FieldData.getPose2D().getY(DistanceUnit.CM)
-            telemetry.addData("Ball Y Inside: " , yPos);
+            double xPos = getDistance2(ID) * Math.cos(Math.toRadians(fullBearing)); // + FieldData.getPose2D().getX(DistanceUnit.CM)
+            double yPos = getDistance2(ID) * Math.sin(Math.toRadians(fullBearing)); // + FieldData.getPose2D().getY(DistanceUnit.CM)
             objectPose = new Pose2D(DistanceUnit.CM,xPos,yPos,AngleUnit.DEGREES,fullBearing);
-            telemetry.addData("Object Pose Status: ", "Found");
         }
 
         return objectPose;

@@ -18,6 +18,9 @@ public class FieldObject {
     public double getX(){return positionX;}
     public double getY(){return positionY;}
     public double getZ(){return positionZ;}
+    public void setX(double x){positionX = x;}
+    public void setY(double y){positionY = y;}
+    public void setZ(double z){positionZ = z;}
     public double getAngle(){return angle;}
     public LiveMap getLiveMap(){return currentLiveMap;}
     public void setCurrentLiveMap(LiveMap map) {currentLiveMap = map;}
