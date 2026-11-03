@@ -83,6 +83,39 @@ public final class Constants {
 
     public static final class colorDetection {
         public static ColorBlobLocatorProcessor colorLocator;
+
+        public enum ballColorRanges {
+            ASL_COMPETITION
+                    (
+                        new ColorRange(ColorSpace.YCrCb, new Scalar(32, 128, 0), new Scalar(255, 200, 60)),
+                        ColorRange.RED,
+                        ColorRange.BLUE
+                    ),
+            MILL
+                    (
+                        new ColorRange(ColorSpace.YCrCb, new Scalar(32, 128, 0), new Scalar(255, 200, 60)),
+                        ColorRange.RED,
+                        ColorRange.BLUE
+                    ),
+            DOMINIC_HOUSE
+                    (
+                            new ColorRange(ColorSpace.YCrCb, new Scalar(32, 128, 0), new Scalar(255, 200, 60)),
+                            ColorRange.RED,
+                            ColorRange.BLUE
+                    );
+
+            public ColorRange pollenRange;
+            public ColorRange redNectarRange;
+            public ColorRange blueNectarRange;
+
+
+            ballColorRanges(ColorRange pollenRange, ColorRange redNectarRange, ColorRange blueNectarRange) {
+                this.pollenRange = pollenRange;
+                this.redNectarRange = redNectarRange;
+                this.blueNectarRange = blueNectarRange;
+            }
+
+        }
         public static final ColorRange pollenColorRange = new ColorRange(
                 ColorSpace.YCrCb,
                 //ColorSpace.HSV,
@@ -96,13 +129,13 @@ public final class Constants {
 
         //ColorRange.YELLOW;
 
-        public static final ColorRange blueNectarColorRange = new ColorRange(
+        public static final ColorRange defualtBlueNectarColorRange = new ColorRange(
                 ColorSpace.YCrCb,
                 new Scalar( 16,   0, 155),
                 new Scalar(255, 127, 255)
         );
 
-        public static final ColorRange redNectarColorRange = new ColorRange(
+        public static final ColorRange defualtRedNectarColorRange = new ColorRange(
                 ColorSpace.YCrCb,
                 new Scalar( 32, 176,  0),
                 new Scalar(255, 255, 132)
