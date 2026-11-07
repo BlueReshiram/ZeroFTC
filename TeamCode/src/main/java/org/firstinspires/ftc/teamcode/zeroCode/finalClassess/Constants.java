@@ -52,8 +52,10 @@ public final class Constants {
 
     public static final class turret {
         //The turret left and right is dependent on what way the robot is facing
-        public static final String turretName = "turret";
-        public static CRServo turret;
+        public static final String turret1Name = "turret1";
+        public static CRServo turret1;
+        public static final String turret2Name = "turret2";
+        public static CRServo turret2;
     }
 
     public static final class shooter {
@@ -277,7 +279,8 @@ public final class Constants {
 
             if (initializeTurret) {
                 try {
-                    turret.turret = hardwareMap.get(CRServo.class, turret.turretName);
+                    turret.turret1 = hardwareMap.get(CRServo.class, turret.turret1Name);
+                    turret.turret2 = hardwareMap.get(CRServo.class, turret.turret2Name);
                     //We don't need the second turret right now
                     //turrets.turretRight = hardwareMap.get(CRServo.class, turrets.turretRightName);
                     telemetry.addLine("Turrets initialized.");
