@@ -34,7 +34,7 @@ public class BallFindingTestingTeleOp extends OpMode {
         visionPortal = Constants.webcam.visionPortal;
         colorProcessor = Constants.colorDetection.colorLocator;
 
-        colorLocator = new ColorLocator(colorProcessor, telemetry, Ball.BallType.POLLEN);
+        colorLocator = new ColorLocator(colorProcessor, telemetry, Ball.BallType.POLLEN, ColorLocator.CameraType.LIMELIGHT);
 
         telemetry.setMsTransmissionInterval(100);   // Speed up telemetry updates for debugging.
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.MONOSPACE);

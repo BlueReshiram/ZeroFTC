@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 import android.graphics.Color;
 import android.util.Size;
 
+import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -75,6 +76,13 @@ public final class Constants {
         public static int FoV = 78;
         public static double focalLength = 660.3;
         public static double heightAboveField = 22.7;
+    }
+
+    public static final class limelight {
+        public static final String limelightName = "limelight";
+        public static Limelight3A limelight;
+        public static int pipeline = 0;
+        public static int pollRateHz = 100;
     }
 
     public static final class aprilTags {
@@ -277,6 +285,23 @@ public final class Constants {
                 }
             } else {
                 telemetry.addLine("April Tags NOT initialized.");
+            }
+
+            if (initializeLimelight) {
+                try {
+
+                    limelight.limelight = hardwareMap.get(Limelight3A.class, limelight.limelightName);
+                    limelight.limelight.setPollRateHz(limelight.pollRateHz);
+                    limelight.limelight.start();
+                    limelight.limelight.pipelineSwitch(limelight.pipeline);
+
+                    telemetry.addLine("Limelight initialized.");
+                } catch (Exception e) {
+                    telemetry.addLine("ERROR: Limelight not configured.");
+                    telemetry.addLine("Limelight NOT initialized.");
+                }
+            } else {
+                telemetry.addLine("Limelight NOT initialized.");
             }
 
             if (initializeWebcam) {

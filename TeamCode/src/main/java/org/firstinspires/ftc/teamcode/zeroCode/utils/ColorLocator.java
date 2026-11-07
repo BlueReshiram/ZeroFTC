@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.utils;
 
+import com.qualcomm.hardware.limelightvision.Limelight3A;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -12,7 +14,7 @@ import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
 import java.util.List;
 
 public class ColorLocator {
-    private final ColorBlobLocatorProcessor processor;
+    private ColorBlobLocatorProcessor processor;
     private final double focalLength;
 
     private Pose2D objectPose;
@@ -20,45 +22,62 @@ public class ColorLocator {
     private Telemetry telemetry;
     private Ball.BallType ballType;
 
-    public ColorLocator(ColorBlobLocatorProcessor colorProcessor, Telemetry telemetry, Ball.BallType ballType){
-        processor = colorProcessor;
+    private CameraType cameraType;
 
-        processor.addFilter(
-                new ColorBlobLocatorProcessor.BlobFilter(
-                        ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA,
-                        50,
-                        20000 ));
+    private Limelight3A limelight;
 
-        //processor.addFilter(
-        //        new ColorBlobLocatorProcessor.BlobFilter(
-        //       ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
-        //       0.6, 1)
-        //);
+    public enum CameraType {
+        LIMELIGHT,
+        WEBCAM
+    }
 
+    public ColorLocator(ColorBlobLocatorProcessor colorProcessor, Telemetry telemetry, Ball.BallType ballType, CameraType cameraType){
         this.telemetry = telemetry;
-
+        this.cameraType = cameraType;
         this.ballType = ballType;
 
 
         focalLength = Constants.webcam.focalLength;
+        this.limelight = Constants.limelight.limelight;
+
+        if (cameraType == CameraType.WEBCAM) {
+            processor = colorProcessor;
+            processor.addFilter(
+                    new ColorBlobLocatorProcessor.BlobFilter(
+                            ColorBlobLocatorProcessor.BlobCriteria.BY_CONTOUR_AREA,
+                            50,
+                            20000));
+
+            //processor.addFilter(
+            //        new ColorBlobLocatorProcessor.BlobFilter(
+            //       ColorBlobLocatorProcessor.BlobCriteria.BY_CIRCULARITY,
+            //       0.6, 1)
+            //);
+        }
     }
 
+    public boolean isWebcam() {return cameraType == CameraType.WEBCAM;}
+    public boolean isLimelight() {return cameraType == CameraType.LIMELIGHT;}
+
     public List<ColorBlobLocatorProcessor.Blob> getBlobs() {
-        return processor.getBlobs();
+        return isWebcam() ? processor.getBlobs() : null;
     }
 
     public Double getBearing(int ID) {
         double bearing;
-        if (ID >= getBlobs().size()) {
-            bearing = Double.NaN;
-            telemetry.addData("Finding Bearing: ", "False");
+        if (isWebcam()) {
+            if (ID >= getBlobs().size()) {
+                bearing = Double.NaN;
+                telemetry.addData("Finding Bearing: ", "False");
 
+            } else {
+                telemetry.addData("Finding Bearing: ", "True");
+                bearing =
+                        Math.toDegrees(Math.atan2((getXPosition(ID) - (double) Constants.webcam.cameraResWidth / 2), focalLength));
+            }
         } else {
-            telemetry.addData("Finding Bearing: ", "True");
-            bearing =
-                    Math.toDegrees(Math.atan2((getXPosition(ID) - (double) Constants.webcam.cameraResWidth /2), focalLength));
+            bearing = Double.NaN;
         }
-
 
         return bearing;
 
