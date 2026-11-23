@@ -40,8 +40,8 @@ public class DrivebaseTestingTeleOp extends OpMode {
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
         drive = new DriveRC();
-        intake = new Intakes();
-        ramp = new Ramp();
+        //intake = new Intakes();
+        //ramp = new Ramp();
         //turret = new Turret();
         odo = Constants.pinpoint.pinpointDriver;
 
@@ -61,11 +61,11 @@ public class DrivebaseTestingTeleOp extends OpMode {
         odo.update();
 
         //Drive command:
-        double[] motorPowers = drive.calculateDriveMecanumRC(
+        double[] motorPowers = drive.calculateDrive(
                 //odo.getPosition().getHeading(AngleUnit.DEGREES),
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x,
-                -gamepad1.left_stick_y);
+                gamepad1.left_stick_y);
 
         drive.powerMotors(
                 motorPowers[0],
@@ -135,8 +135,9 @@ public class DrivebaseTestingTeleOp extends OpMode {
                         gamepad1.left_trigger : -gamepad1.right_trigger
         );
 
-        telemetry.update();
         */
+
+        telemetry.update();
     }
 
 

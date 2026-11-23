@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
-
 import android.graphics.Color;
 import android.util.Size;
 
@@ -45,7 +44,7 @@ public final class Constants {
         }
 
 
-        public static double weight;
+        public static double weight = Double.NaN;
 
         //Configure what alliance the robot is on here:
         public static alliance robotAlliance = alliance.RED;
@@ -54,24 +53,24 @@ public final class Constants {
     public static final class turret {
         //The turret left and right is dependent on what way the robot is facing
         public static final String turret1Name = "turret1";
-        public static CRServo turret1;
+        public static CRServo turret1 = null;
         public static final String turret2Name = "turret2";
-        public static CRServo turret2;
+        public static CRServo turret2 = null;
     }
 
     public static final class shooter {
         public static final String hoodName = "hood";
         public static final String leverServo1Name = "lever1";
         public static final String leverServo2Name = "lever2";
-        public static Servo hood;
-        public static Servo leverServo1;
-        public static Servo leverServo2;
+        public static Servo hood = null;
+        public static Servo leverServo1 = null;
+        public static Servo leverServo2 = null;
     }
 
     public static final class webcam {
         public static final String webcamName = "webcam";
 
-        public static VisionPortal visionPortal;
+        public static VisionPortal visionPortal = null;
 
         public static int cameraResWidth = 640;
         public static int cameraResHeight = 480;
@@ -81,11 +80,11 @@ public final class Constants {
     }
 
     public static final class aprilTags {
-        public static AprilTagProcessor aprilTagProcessor;
+        public static AprilTagProcessor aprilTagProcessor = null;
     }
 
     public static final class colorDetection {
-        public static ColorBlobLocatorProcessor colorLocator;
+        public static ColorBlobLocatorProcessor colorLocator = null;
         public static final ColorRange pollenColorRange = new ColorRange(
                 ColorSpace.YCrCb,
                 //ColorSpace.HSV,
@@ -116,7 +115,7 @@ public final class Constants {
 
     public static final class pinpoint {
         public static String pinpointName = "odo";
-        public static GoBildaPinpointDriver pinpointDriver;
+        public static GoBildaPinpointDriver pinpointDriver = null;
         public static double xOffset = 77.539;
         public static double yOffset = 32.729;
         public static DistanceUnit offsetDistanceUnit = DistanceUnit.MM;
@@ -126,13 +125,13 @@ public final class Constants {
     public static final class intakes{
         public static String intakePollenName = "intakePollen";
         public static String intakeNectarName = "intakeNectar";
-        public static DcMotor intakePollen;
-        public static DcMotor intakeNectar;
+        public static DcMotor intakePollen = null;
+        public static DcMotor intakeNectar = null;
     }
 
     public static final class ramp{
         public static String rampName = "ramp";
-        public static Servo ramp;
+        public static Servo ramp = null;
         public static double rampPollenAngle = 0.0;
         public static double rampNectarAngle = 180.0;
     }
@@ -142,15 +141,15 @@ public final class Constants {
         public static final String frontRightMotorName = "frontRightMotor";
         public static final String backLeftMotorName = "backLeftMotor";
         public static final String backRightMotorName = "backRightMotor";
-        public static DcMotor frontLeftMotor;
-        public static DcMotor frontRightMotor;
-        public static DcMotor backLeftMotor;
-        public static DcMotor backRightMotor;
+        public static DcMotor frontLeftMotor = null;
+        public static DcMotor frontRightMotor = null;
+        public static DcMotor backLeftMotor = null;
+        public static DcMotor backRightMotor = null;
     }
 
     public static final class imu {
         public static final String imuName = "imu";
-        public static IMU imu;
+        public static IMU imu = null;
 
         public static void resetYaw(){
             imu.resetYaw();

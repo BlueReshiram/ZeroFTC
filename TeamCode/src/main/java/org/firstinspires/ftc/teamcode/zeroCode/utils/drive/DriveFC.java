@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
 //This is a class from the drive class
 public class DriveFC extends Drive {
     //Field Centric Drive
-    public double[] calculateDriveMecanumFC(double botHeading, double lx, double rx, double y){
+    public double[] calculateDrive(double botHeading, double lx, double rx, double ly){
+        double y = -ly;
         //lx = left stick x, rx = right stick x, y = left stick y?
         double rotX = lx * Math.cos(-botHeading) - y * Math.sin(-botHeading);
         double rotY = lx * Math.sin(-botHeading) + y * Math.cos(-botHeading);
@@ -21,4 +22,5 @@ public class DriveFC extends Drive {
 
         return new double[]{frontLeftPower, frontRightPower, backLeftPower, backRightPower};
     }
+
 }

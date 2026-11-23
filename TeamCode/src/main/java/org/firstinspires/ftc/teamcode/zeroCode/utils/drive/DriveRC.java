@@ -3,7 +3,8 @@ package org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
 //This is a class from the drive class
 public class DriveRC extends Drive {
     //Robot Centric Drive
-    public double[] calculateDriveMecanumRC(double lx, double rx, double y){
+    public double[] calculateDrive(double lx, double rx, double ly){
+        double y = -ly;
         double denominator = Math.max(Math.abs(y) + Math.abs(lx) + Math.abs(rx), 1);
         double frontLeftPower = (y + lx + rx) / denominator;
         double backLeftPower = (y - lx + rx) / denominator;
