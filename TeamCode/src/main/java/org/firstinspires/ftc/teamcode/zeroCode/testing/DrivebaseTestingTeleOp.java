@@ -31,18 +31,18 @@ public class DrivebaseTestingTeleOp extends OpMode {
     @Override
     public void init() {
         Constants.hardware.resetHardwareMaps(telemetry);
-        //Constants.hardware.initializeIntakes = true;
+        Constants.hardware.initializeIntakes = true;
         Constants.hardware.initializeDrive = true;
         Constants.hardware.initializePinpoint = true;
-        //Constants.hardware.initializeRamp = true;
+        Constants.hardware.initializeRamp = true;
         //Constants.hardware.initializeIMU = true;
-        //Constants.hardware.initializeTurret = true;
+        Constants.hardware.initializeTurret = true;
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
         drive = new DriveRC();
-        //intake = new Intakes();
-        //ramp = new Ramp();
-        //turret = new Turret();
+        intake = new Intakes();
+        ramp = new Ramp();
+        turret = new Turret();
         odo = Constants.pinpoint.pinpointDriver;
 
         telemetry.update();
@@ -110,14 +110,13 @@ public class DrivebaseTestingTeleOp extends OpMode {
 
         telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
 
-        /*
-        if (gamepad1.x) {
+        if (gamepad1.right_trigger > 0.1) {
             intake.powerPollenIntake(1);
         } else {
             intake.powerPollenIntake(0);
         }
 
-        if (gamepad1.y) {
+        if (gamepad1.left_trigger > 0.1) {
             intake.powerNectarIntake(1);
         } else {
             intake.powerNectarIntake(0);
@@ -131,11 +130,11 @@ public class DrivebaseTestingTeleOp extends OpMode {
         }
 
         turret.powerTurret(
-                gamepad1.left_trigger > gamepad1.right_trigger ? 
-                        gamepad1.left_trigger : -gamepad1.right_trigger
+                gamepad2.left_trigger > gamepad2.right_trigger
+                        ? gamepad2.left_trigger
+                        : -gamepad2.right_trigger
         );
 
-        */
 
         telemetry.update();
     }

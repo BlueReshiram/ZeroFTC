@@ -27,6 +27,7 @@ import org.opencv.core.Scalar;
 
 public final class Constants {
     public static Telemetry telemetry;
+    public static HardwareMap hardwareMap;
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
 
@@ -170,6 +171,7 @@ public final class Constants {
         public static boolean initializeColorBlobLocator = false;
         public static boolean initializeAprilTags = false;
         public static boolean initializePinpoint = false;
+        public static boolean withTelemetry = true;
         public static void resetHardwareMaps(Telemetry telemetry) {
             initializeDrive = false;
             initializeIMU = false;
@@ -189,7 +191,9 @@ public final class Constants {
         }
 
         public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
+            boolean returnFalse = false;
             Constants.telemetry = telemetry;
+            Constants.hardwareMap = hardwareMap;
             if (initializeDrive) {
                 try {
                     drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
@@ -198,12 +202,11 @@ public final class Constants {
                     drive.backRightMotor = hardwareMap.get(DcMotor.class, drive.backRightMotorName);
 
                     drive.frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-
                     telemetry.addLine("Drive hardware maps initialized.");
                 } catch (Exception e) {
                     telemetry.addLine("Not all drive hardware maps configured.");
                     telemetry.addLine("Drive hardware maps NOT initialized.");
-                    return false;
+                    returnFalse = true;
                 }
 
             } else {
@@ -224,7 +227,7 @@ public final class Constants {
                 } catch (Exception e){
                     telemetry.addLine("Not all IMU hardware maps configured.");
                     telemetry.addLine("IMU hardware map NOT initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("IMU hardware map NOT initialized.");
@@ -254,7 +257,7 @@ public final class Constants {
                     telemetry.addLine("Not all webcam hardware maps configured.");
                     telemetry.addLine("Color Locator NOT initialized.");
                     telemetry.addLine("Error Initilizing");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Color Locator NOT initialized.");
@@ -273,6 +276,7 @@ public final class Constants {
                 } catch (Exception e) {
                     telemetry.addLine("Not all April Tags configured.");
                     telemetry.addLine("April Tags NOT initialized.");
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("April Tags NOT initialized.");
@@ -300,7 +304,7 @@ public final class Constants {
                 } catch (Exception e){
                     telemetry.addLine("Not all webcam/vision portal hardware maps configured.");
                     telemetry.addLine("Webcam and Vision Portal NOT initialized.");
-                    return false;
+                    returnFalse = true;
 
                 }
             } else {
@@ -317,7 +321,7 @@ public final class Constants {
                 } catch (Exception e){
                     telemetry.addLine("Not all turret hardware maps configured.");
                     telemetry.addLine("Turret NOT initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Turret NOT initialized.");
@@ -332,7 +336,7 @@ public final class Constants {
                 } catch (Exception e){
                     telemetry.addLine("Not all shooter hardware maps configured.");
                     telemetry.addLine("Shooter parts NOT initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Shooter parts NOT initialized.");
@@ -346,7 +350,7 @@ public final class Constants {
                 } catch (Exception e) {
                     telemetry.addLine("Not all intake hardware maps configured.");
                     telemetry.addLine("Intakes not initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Intakes not initialized.");
@@ -359,7 +363,7 @@ public final class Constants {
                 } catch (Exception e) {
                     telemetry.addLine("Ramp hardware map not configured.");
                     telemetry.addLine("Ramp not initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Ramp not initialized.");
@@ -378,16 +382,20 @@ public final class Constants {
                 } catch (Exception e) {
                     telemetry.addLine("Pinpoint hardware map not configured.");
                     telemetry.addLine("Pinpoint not initialized.");
-                    return false;
+                    returnFalse = true;
                 }
             } else {
                 telemetry.addLine("Pinpoint not initialized.");
             }
 
+            if (withTelemetry) {
+                telemetry.update();
+            } else {
+                telemetry.clearAll();
+            }
 
-            telemetry.update();
+            return !returnFalse;
 
-            return true;
         }
 
     }

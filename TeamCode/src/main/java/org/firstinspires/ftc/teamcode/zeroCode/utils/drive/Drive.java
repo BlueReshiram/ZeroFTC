@@ -10,14 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 
 public class Drive {
-    private Drive Drivebase;
-
-    public Drive(Drive Drivebase) {
-        this.Drivebase = Drivebase;
-    }
-
     public double botHeading(){
-
         return Constants.imu.imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
     }
 
