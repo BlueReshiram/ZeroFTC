@@ -9,12 +9,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 import org.firstinspires.ftc.teamcode.pinpoint.GoBildaPinpointDriver;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
-import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.FieldData;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Intakes;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Ramp;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.drive.DriveFC;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.drive.DriveRC;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.intake.IntakesSubsystem;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.ramp.RampSubsystem;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.turret.TurretSubsystem;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.drive.DriveRC;
 
 import java.util.Locale;
 
@@ -22,9 +20,9 @@ import java.util.Locale;
 public class DrivebaseTestingTeleOp extends OpMode {
     double oldTime = 0;
     DriveRC drive;
-    Intakes intake;
-    Ramp ramp;
-    Turret turret;
+    IntakesSubsystem intake;
+    RampSubsystem rampSubsystemIO;
+    TurretSubsystem turretSubsystem;
 
     GoBildaPinpointDriver odo;
 
@@ -67,12 +65,15 @@ public class DrivebaseTestingTeleOp extends OpMode {
                 gamepad1.right_stick_x,
                 gamepad1.left_stick_y);
 
+        /*
         drive.powerMotors(
                 motorPowers[0],
                 motorPowers[1],
                 motorPowers[2],
                 motorPowers[3]
         );
+
+         */
 
         double newTime = getRuntime();
         double loopTime = newTime-oldTime;

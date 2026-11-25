@@ -1,14 +1,15 @@
-package org.firstinspires.ftc.teamcode.zeroCode.utils;
+package org.firstinspires.ftc.teamcode.zeroCode.subsystems.turret;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.Subsystem;
 
-public class Turret {
+public class TurretSubsystem implements Subsystem {
     private CRServo turret1;
     private CRServo turret2;
 
-    public Turret(){
+    public TurretSubsystem(){
         turret1 = Constants.turret.turret1;
         turret2 = Constants.turret.turret2;
     }

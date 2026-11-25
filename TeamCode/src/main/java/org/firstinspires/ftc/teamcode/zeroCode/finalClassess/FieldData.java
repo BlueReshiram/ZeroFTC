@@ -1,10 +1,7 @@
 package org.firstinspires.ftc.teamcode.zeroCode.finalClassess;
 
-import com.pedropathing.math.Pose;
-
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.LiveMap;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.mapping.LiveMap;
 
 public final class FieldData {
     /*A hive would be considered tipped, if the part that is closest to the flower is lower.

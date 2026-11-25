@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.AprilTag;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.vision.AprilTag;
 import org.firstinspires.ftc.vision.apriltag.AprilTagLibrary;
 
 @TeleOp(name="AprilTagVision", group="Testing")

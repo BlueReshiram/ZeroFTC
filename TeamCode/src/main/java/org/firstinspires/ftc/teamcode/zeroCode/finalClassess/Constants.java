@@ -27,6 +27,7 @@ import org.opencv.core.Scalar;
 
 public final class Constants {
     public static Telemetry telemetry;
+    public static HardwareMap hardwareMap;
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
 
@@ -43,11 +44,20 @@ public final class Constants {
             RED
         }
 
+        public enum RobotMode{
+            REAL,
+            SIM
+        }
+
+
+        public static RobotMode robotMode = RobotMode.REAL;
 
         public static double weight = Double.NaN;
 
         //Configure what alliance the robot is on here:
         public static alliance robotAlliance = alliance.RED;
+
+
     }
 
     public static final class turret {
@@ -137,6 +147,12 @@ public final class Constants {
     }
 
     public static final class drive{
+        public enum DriveMode{
+            ROBOT_CENTRIC,
+            FIELD_CENTRIC
+        }
+        public static DriveMode driveMode = DriveMode.ROBOT_CENTRIC;
+
         public static final String frontLeftMotorName = "frontLeftMotor";
         public static final String frontRightMotorName = "frontRightMotor";
         public static final String backLeftMotorName = "backLeftMotor";
@@ -145,6 +161,7 @@ public final class Constants {
         public static DcMotor frontRightMotor = null;
         public static DcMotor backLeftMotor = null;
         public static DcMotor backRightMotor = null;
+
     }
 
     public static final class imu {
@@ -158,7 +175,6 @@ public final class Constants {
     }
 
     public static final class hardware {
-
         public static boolean initializeDrive = false;
         public static boolean initializeIMU = false;
         public static boolean initializeTurret = false;

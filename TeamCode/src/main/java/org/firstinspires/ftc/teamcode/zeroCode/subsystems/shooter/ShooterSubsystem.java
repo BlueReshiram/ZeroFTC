@@ -1,10 +1,11 @@
-package org.firstinspires.ftc.teamcode.zeroCode.utils;
+package org.firstinspires.ftc.teamcode.zeroCode.subsystems.shooter;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.Subsystem;
 
-public class Shooter {
+public class ShooterSubsystem implements Subsystem {
     private final Servo hood;
     private final Servo lever1;
     private final Servo lever2;
@@ -20,7 +21,7 @@ public class Shooter {
         }
     }
 
-    public Shooter() {
+    public ShooterSubsystem() {
         hood = Constants.shooter.hood;
         lever1 = Constants.shooter.leverServo1;
         lever2 = Constants.shooter.leverServo2;

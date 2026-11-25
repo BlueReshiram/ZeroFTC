@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.zeroCode.utils.drive;
+package org.firstinspires.ftc.teamcode.zeroCode.subsystems.drive;
 
 //This is a class from the drive class
-public class DriveFC extends Drive {
+public class DriveFC{
     //Field Centric Drive
     public double[] calculateDrive(double botHeading, double lx, double rx, double ly){
         double y = -ly;

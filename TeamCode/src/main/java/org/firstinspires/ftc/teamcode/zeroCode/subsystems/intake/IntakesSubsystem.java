@@ -1,15 +1,16 @@
-package org.firstinspires.ftc.teamcode.zeroCode.utils;
+package org.firstinspires.ftc.teamcode.zeroCode.subsystems.intake;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.Subsystem;
 
-public class Intakes {
+public class IntakesSubsystem implements Subsystem {
     DcMotor pollenIntake;
     DcMotor nectarIntake;
 
 
-    public Intakes(){
+    public IntakesSubsystem(){
         pollenIntake = Constants.intakes.intakePollen;
         nectarIntake = Constants.intakes.intakeNectar;
     }

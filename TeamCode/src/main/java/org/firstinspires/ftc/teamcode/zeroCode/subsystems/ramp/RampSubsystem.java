@@ -1,12 +1,13 @@
-package org.firstinspires.ftc.teamcode.zeroCode.utils;
+package org.firstinspires.ftc.teamcode.zeroCode.subsystems.ramp;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.Subsystem;
 
-public class Ramp {
+public class RampSubsystem implements Subsystem {
     Servo ramp;
-    public Ramp() {
+    public RampSubsystem() {
         ramp = Constants.ramp.ramp;
     }
 

@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.Pid;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.AprilTag;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.vision.AprilTag;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.turret.TurretSubsystem;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +17,7 @@ public class TurretTestingTeleOp extends OpMode {
     private static ElapsedTime globalTimer = new ElapsedTime();
     private static AprilTag webcam;
     private static Pid pid;
-    private static Turret turret;
+    private static TurretSubsystem turretSubsystem;
     private static boolean turretConnected;
     private static double turretPower;
 
@@ -36,7 +36,7 @@ public class TurretTestingTeleOp extends OpMode {
 
         webcam = new AprilTag(true);
         pid = new Pid(0, 0.01, 0, 0);
-        turret = new Turret();
+        turretSubsystem = new TurretSubsystem();
     }
 
     @Override

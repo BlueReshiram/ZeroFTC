@@ -2,12 +2,11 @@ package org.firstinspires.ftc.teamcode.zeroCode.testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Shooter;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.shooter.ShooterSubsystem;
 
 public class ShooterTestingTeleOp extends OpMode {
-    private Shooter shooter;
+    private ShooterSubsystem shooterSubsystem;
     private double maxHoodPos = 180;
     private double minHoodPos = 0;
     private double hoodPos = 0;
@@ -24,19 +23,19 @@ public class ShooterTestingTeleOp extends OpMode {
 
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
-        shooter = new Shooter();
+        shooterSubsystem = new ShooterSubsystem();
     }
 
     @Override
     public void loop() {
         if (gamepad1.a) {
-            shooter.moveShooter(Shooter.ShooterPositions.NECTAR_POSITION);
+            shooterSubsystem.moveShooter(ShooterSubsystem.ShooterPositions.NECTAR_POSITION);
         } else if (gamepad1.b) {
-            shooter.moveShooter(Shooter.ShooterPositions.POLLEN_POSITION);
+            shooterSubsystem.moveShooter(ShooterSubsystem.ShooterPositions.POLLEN_POSITION);
         }
 
         hoodPos += gamepad1.left_stick_y/10 * hoodPosSpeed;
 
-        shooter.moveHoodToPosition(Math.min(Math.max(maxHoodPos, hoodPos),minHoodPos));
+        shooterSubsystem.moveHoodToPosition(Math.min(Math.max(maxHoodPos, hoodPos),minHoodPos));
     }
 }

@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.zeroCode.finalClassess.Constants;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.Pid;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.AprilTag;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.drive.DriveFC;
-import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.vision.AprilTag;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.drive.DriveFC;
+import org.firstinspires.ftc.teamcode.zeroCode.subsystems.turret.TurretSubsystem;
 
 import java.util.concurrent.TimeUnit;
 
@@ -17,7 +17,7 @@ public class MainTeleOp extends OpMode {
     private DriveFC robotDrive;
     private AprilTag webcam;
     private Pid pid;
-    private Turret turret;
+    private TurretSubsystem turretSubsystem;
 
     private ElapsedTime timerPID = new ElapsedTime();
     private ElapsedTime globalTimer = new ElapsedTime();
@@ -30,7 +30,7 @@ public class MainTeleOp extends OpMode {
         Constants.hardware.resetHardwareMaps(telemetry);
         Constants.hardware.initializeDrive = true;
         Constants.hardware.initializeWebcam = true;
-        Constants.hardware.initializeIMU = true;
+        Constants.hardware.initializePinpoint = true;
 
         if (Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap)) {
             telemetry.addLine("Initialization Successful");
@@ -42,7 +42,7 @@ public class MainTeleOp extends OpMode {
         robotDrive = new DriveFC();
         webcam = new AprilTag(true);
         pid = new Pid(0, 0.01, 0, 0);
-        turret = new Turret();
+        turretSubsystem = new TurretSubsystem();
 
     }
 
@@ -59,7 +59,7 @@ public class MainTeleOp extends OpMode {
         //Driving
         if (gamepad1.options){
             Constants.imu.resetYaw();}
-        double[] power = robotDrive.calculateDriveMecanumFC(
+        double[] power = robotDrive.calculateDrive(
                 robotDrive.botHeading(),
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x,
@@ -68,7 +68,7 @@ public class MainTeleOp extends OpMode {
 
         if (timerPID.time(TimeUnit.MILLISECONDS) >= 10.0){
             if (!Double.isNaN(webcam.bearingScoring)){
-                turret.powerTurret(pid.getOutput(globalTimer.time(), webcam.bearingScoring));
+                turretSubsystem.powerTurret(pid.getOutput(globalTimer.time(), webcam.bearingScoring));
             } else if (!Double.isNaN(webcam.bearingAudience)) {
                 turretPower = pid.getOutput(globalTimer.time(), webcam.bearingAudience);
             }
@@ -79,5 +79,6 @@ public class MainTeleOp extends OpMode {
         webcam.update();
 
         telemetry.update();
+
     }
 }
