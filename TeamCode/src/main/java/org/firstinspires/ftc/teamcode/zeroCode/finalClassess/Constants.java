@@ -16,6 +16,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.pinpoint.GoBildaPinpointDriver;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.Schedular;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.opencv.ColorBlobLocatorProcessor;
@@ -28,6 +29,7 @@ import org.opencv.core.Scalar;
 public final class Constants {
     public static Telemetry telemetry;
     public static HardwareMap hardwareMap;
+    public static Schedular schedular;
     //Everything in this class is a constant that can be refred to anywhere else in the code.
     public static final class field{
 
@@ -206,6 +208,9 @@ public final class Constants {
 
         public static boolean initializeHardwareMaps(Telemetry telemetry, HardwareMap hardwareMap) {
             Constants.telemetry = telemetry;
+            Constants.hardwareMap = hardwareMap;
+            Constants.schedular = new Schedular();
+
             if (initializeDrive) {
                 try {
                     drive.frontLeftMotor = hardwareMap.get(DcMotor.class, drive.frontLeftMotorName);
