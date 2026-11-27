@@ -9,12 +9,13 @@ import org.firstinspires.ftc.teamcode.zeroCode.utils.Pid;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.AprilTag;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.drive.DriveFC;
 import org.firstinspires.ftc.teamcode.zeroCode.utils.Turret;
+import org.firstinspires.ftc.teamcode.zeroCode.utils.drive.DriveRC;
 
 import java.util.concurrent.TimeUnit;
 
 @TeleOp(name="OpModeV1", group="Main")
 public class MainTeleOp extends OpMode {
-    private DriveFC robotDrive;
+    private DriveRC robotDrive;
     private AprilTag webcam;
     private Pid pid;
     private Turret turret;
@@ -39,7 +40,7 @@ public class MainTeleOp extends OpMode {
             telemetry.addLine("Initialization Failed");
         }
 
-        robotDrive = new DriveFC();
+        robotDrive = new DriveRC();
         webcam = new AprilTag(true);
         pid = new Pid(0, 0.01, 0, 0);
         turret = new Turret();
@@ -59,8 +60,7 @@ public class MainTeleOp extends OpMode {
         //Driving
         if (gamepad1.options){
             Constants.imu.resetYaw();}
-        double[] power = robotDrive.calculateDriveMecanumFC(
-                robotDrive.botHeading(),
+        double[] power = robotDrive.calculateDrive(
                 gamepad1.left_stick_x,
                 gamepad1.right_stick_x,
                 gamepad1.left_stick_y);

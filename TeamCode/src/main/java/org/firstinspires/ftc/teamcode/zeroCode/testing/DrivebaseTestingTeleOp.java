@@ -34,15 +34,15 @@ public class DrivebaseTestingTeleOp extends OpMode {
         Constants.hardware.initializeIntakes = true;
         Constants.hardware.initializeDrive = true;
         Constants.hardware.initializePinpoint = true;
-        Constants.hardware.initializeRamp = true;
+        //Constants.hardware.initializeRamp = true;
         //Constants.hardware.initializeIMU = true;
-        Constants.hardware.initializeTurret = true;
+        //Constants.hardware.initializeTurret = true;
         Constants.hardware.initializeHardwareMaps(telemetry, hardwareMap);
 
         drive = new DriveRC();
         intake = new Intakes();
-        ramp = new Ramp();
-        turret = new Turret();
+        //ramp = new Ramp();
+        //turret = new Turret();
         odo = Constants.pinpoint.pinpointDriver;
 
         telemetry.update();
@@ -111,29 +111,20 @@ public class DrivebaseTestingTeleOp extends OpMode {
         telemetry.addData("REV Hub Frequency: ", frequency); //prints the control system refresh rate
 
         if (gamepad1.right_trigger > 0.1) {
+            intake.powerPollenIntake(-1);
+        } else if (gamepad1.left_trigger > 0.1) {
             intake.powerPollenIntake(1);
         } else {
             intake.powerPollenIntake(0);
         }
 
-        if (gamepad1.left_trigger > 0.1) {
-            intake.powerNectarIntake(1);
-        } else {
-            intake.powerNectarIntake(0);
-        }
-
-
+        /*
         if (gamepad1.a) {
             ramp.turnToNectar();
         } else if (gamepad1.b) {
-            ramp.turnToNectar();
+            ramp.turnToPollen();
         }
-
-        turret.powerTurret(
-                gamepad2.left_trigger > gamepad2.right_trigger
-                        ? gamepad2.left_trigger
-                        : -gamepad2.right_trigger
-        );
+         */
 
 
         telemetry.update();
